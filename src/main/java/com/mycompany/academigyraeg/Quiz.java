@@ -199,6 +199,7 @@ public class Quiz {
         java.sql.Date d = new Date(new java.util.Date().getTime());
         try (Connection conn = SimpleDataSource.getConnection()){
             PreparedStatement storeResult = conn.prepareStatement(resultStore);
+            System.out.println("sets");
             //set data from current quiz
             storeResult.setString(1,username);
             storeResult.setString(2,""+type);
@@ -206,6 +207,7 @@ public class Quiz {
             storeResult.setString(4,""+outOf);
             storeResult.setDate(5,d);
             //submit result to DB
+            System.out.println("execute");
             storeResult.executeUpdate();
             storeResult.close();
             return true;

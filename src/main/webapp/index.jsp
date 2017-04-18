@@ -22,8 +22,6 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.js"></script>
 
-        <br>
-        <br>
         <h3>${message}</h3>
         
         <!-- Start Navigation Bar script -->
@@ -44,7 +42,7 @@
                         <li class="active"><a href="index.jsp">Home</a></li>
                         <li><a href="MenuServlet">Quiz Menu</a></li>
                         <li><a href="EditDict.jsp">Edit Dictionary</a></li>
-                        <li><a href="ViewProfile.jsp">View Profile</a></li>
+                        <li><a href="ProfileServlet">View Profile</a></li>
                     </ul>
                     <!-- Login in button. TODO: Slightly shift to left? -->
                     <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal">Sign In</button>

@@ -16,10 +16,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,6 +39,13 @@ public class ProfileServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        
+        if(session == null || session.getAttribute("user") == null){
+            RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+            rs.forward(request, response);
+        }
+
         // Form data list
         ArrayList list = new ArrayList<>();
         
@@ -53,10 +62,10 @@ public class ProfileServlet extends HttpServlet {
         try (Connection conn = SimpleDataSource.getConnection()){
            
            PreparedStatement ps = conn.prepareStatement("SELECT * FROM login WHERE username = ? AND password = ?");
-           ps.setString(1, username);
-           ps.setString(2, pass);
+           //ps.setString(1, username);
+           //ps.setString(2, pass);
            ResultSet rs = ps.executeQuery();
-           user = rs.next();
+           //user = rs.next();
 
         } catch (SQLException ex) {
             Logger.getLogger(LoginValidate.class.getName()).log(Level.SEVERE, null, ex);

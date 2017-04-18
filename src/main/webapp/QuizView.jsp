@@ -24,7 +24,7 @@
         Previous answer was: ${answer}
         <form action="QuizServlet" method="POST">
             ${firstLabel}: ${question} <br>
-            ${secondLabel}: <input type="text" name="answer">
+            ${secondLabel}: <input type="text" name="answer" autofocus>
             <input type="hidden" name="url" value="view">
             <input type="submit" name="next" class="btn" value="Next">
         </form>

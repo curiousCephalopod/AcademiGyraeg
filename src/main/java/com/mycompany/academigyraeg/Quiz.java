@@ -186,7 +186,7 @@ public class Quiz {
      * ** ^ words to compare against for answers
      * @param solution user entered solution
      */
-    public void solve(String solution)
+    public boolean solve(String solution)
     {
         //check if running for question that does not exist
         if (currentWord > outOf)
@@ -211,22 +211,31 @@ public class Quiz {
             {
                 getWordPart.setString(1,wordIndex[currentWord]);
                 ResultSet rs = getWordPart.executeQuery();
+                //check user input again required column of current word
                 if(solution.equals(rs.getString(column)))
                 {
                     score++;
+                    currentWord++;
+                    return true;
+                }
+                else
+                {
+                    currentWord++;
+                    return false;
                 }
             }
             catch(SQLException exception)
             {
                 System.out.println("answer retrieval error");
+                return false;
             }
             //select column from words where ID = wordIndex[currentWord]
             //if result = solution from user add one to score.
-            currentWord++;
         }
         else
         {
             System.out.println("too many solutions");
+            return false;
         }
     }
     

@@ -1,7 +1,7 @@
 <%-- 
     Document   : ViewProfile
     Created on : 18-Apr-2017, 17:26:40
-    Author     : Amber
+    Author     : eeu68b
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -65,6 +65,7 @@
                             <th>Test ID</th>
                             <th>Result</th>
                             <th>Out Of</th>
+                            <th>Date</th>
                         </tr>
                     </thread>
                     <tbody>

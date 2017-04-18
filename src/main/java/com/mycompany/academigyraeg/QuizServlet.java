@@ -32,9 +32,8 @@ public class QuizServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         
-        System.out.println("Path " + request.getPathInfo());
         Quiz quiz = (Quiz)session.getAttribute("quizObject");
-        if(quiz == null){
+        if(request.getParameter("url").equals("menu")){
             // First run
             
             char quizType = request.getParameter("quiz").charAt(0);
@@ -68,18 +67,26 @@ public class QuizServlet extends HttpServlet {
             session.setAttribute("quizName", quizName);
             session.setAttribute("firstLabel", firstLabel);
             session.setAttribute("secondLabel", secondLabel);
+            session.setAttribute("answer", "");
             
             quiz = new Quiz((String)session.getAttribute("user"), quizType);
+            session.setAttribute("outOf", quiz.outOf);
+            session.setAttribute("quizObject", quiz);
         }else{
             // Next question
             String answer = request.getParameter("answer");
-            quiz.solve(answer);
+            session.setAttribute("answer", quiz.solve(answer));
+        }
+        session.setAttribute("current", quiz.currentWord);
+        RequestDispatcher rs;
+        if(quiz.currentWord == (quiz.outOf - 1)){
+            session.setAttribute("score", quiz.score);
+            rs = request.getRequestDispatcher("QuizResult.jsp");
+        }else{
+            session.setAttribute("question", quiz.getCurrentWord());
+            rs = request.getRequestDispatcher("QuizView.jsp");
         }
         
-        session.setAttribute("question", quiz.getCurrentWord());
-        
-        RequestDispatcher rs = request.getRequestDispatcher("QuizView.jsp");
-
         rs.include(request, response);
     }
 

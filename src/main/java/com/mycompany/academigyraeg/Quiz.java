@@ -71,7 +71,6 @@ public class Quiz {
             //run get all IDs
             for(int i=0;i<outOf;i++)
             {
-                System.out.println(i);
                 ResultSet res = st.executeQuery(getRandID);
                 res.next();
                 wordIndex[i] = res.getInt("wordID");
@@ -188,7 +187,7 @@ public class Quiz {
     public boolean solve(String solution)
     {
         //check if running for question that does not exist
-        if (currentWord > outOf)
+        if (currentWord < outOf)
         {
             String column = "";
             String input;
@@ -210,6 +209,7 @@ public class Quiz {
                 PreparedStatement getWordPart = conn.prepareStatement(wordGet);
                 getWordPart.setInt(1,wordIndex[currentWord]);
                 ResultSet rs = getWordPart.executeQuery();
+                rs.next();
                 //check user input again required column of current word
                 if(solution.equals(rs.getString(column)))
                 {

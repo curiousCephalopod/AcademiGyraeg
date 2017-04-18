@@ -1,6 +1,6 @@
 <%-- 
-    Document   : QuizView
-    Created on : 18-Apr-2017, 16:47:19
+    Document   : QuizResult
+    Created on : 18-Apr-2017, 19:13:39
     Author     : eeu67d
 --%>
 
@@ -19,14 +19,7 @@
         <link rel="stylesheet" href="css/custom.css" type="text/css">
     </head>
     <body>
-        <h1>${quizName}</h1>
-        Current question: ${current} out of ${outOf}.
-        Previous answer was: ${answer}
-        <form action="QuizServlet" method="POST">
-            ${firstLabel}: ${question} <br>
-            ${secondLabel}: <input type="text" name="answer">
-            <input type="hidden" name="url" value="view">
-            <input type="submit" name="next" class="btn" value="Next">
-        </form>
+        <h1>Congratulations, you finished!</h1>
+        You scored ${score} out of ${outOf}.
     </body>
 </html>

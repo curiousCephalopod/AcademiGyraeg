@@ -87,7 +87,7 @@ public class Quiz {
         }
         catch (SQLException exception)
         {
-            System.out.println("DB error");
+            System.out.println("DB error(constructor)");
         }
     }
     
@@ -133,7 +133,7 @@ public class Quiz {
         }
         catch(SQLException exception)
         {
-            System.out.println("SQL error");
+            System.out.println("SQL error(word ouput)");
         }
 
         return output;
@@ -172,7 +172,7 @@ public class Quiz {
             // Retrieve required word
             output = rs.getString(column);
         }catch(SQLException exception){
-            System.out.println("SQL error");
+            System.out.println("SQL error(getCurrentWord)");
         }
 
         return output;
@@ -256,7 +256,7 @@ public class Quiz {
         }
         catch(SQLException esception)
         {
-            System.out.println("sql error");
+            System.out.println("result store error");
             return false;
         }
         

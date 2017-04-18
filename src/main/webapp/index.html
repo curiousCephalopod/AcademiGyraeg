@@ -46,7 +46,7 @@
             <div class="modal-dialog">
                 <div class="usermodal-container">
                     <h1>Login to Your Account</h1><br>
-                    <form>
+                    <form action="LoginServlet" method="POST">
                         <input type="text" name="user" placeholder="Username">
                         <input type="password" name="pass" placeholder="Password">
                         <input type="submit" name="login" class="usermodal-submit" value="Login">
@@ -60,7 +60,7 @@
             <div class="modal-dialog">
                 <div class="usermodal-container">
                     <h1>Register a New Account</h1><br>
-                    <form action="LoginServlet" method="POST">
+                    <form action="RegisterServlet" method="POST">
                         <input type="text" name="user" placeholder="Username">
                         <input type="password" name="pass" placeholder="Password">
                         <input type="submit" name="login" class="usermodal-submit" value="Register">

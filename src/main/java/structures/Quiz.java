@@ -5,7 +5,12 @@
  */
 package structures;
 
+import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 
 /**
@@ -13,50 +18,150 @@ import java.util.Random;
  * @author Ed
  */
 public class Quiz {
-    int outOf = 20;
-    TestWord[] wordList = new TestWord[outOf];
-    int wordIndex[] = new int[outOf];
+    InputStream stream;
+    Connection conn;
+    Statement st;
+    
+    
+        
+    
+    int outOf = 20; //total words of quiz
+    int currentWord = 0; //current word incrementer
+    String username; //user working current test
+    String wordIndex[] = new String[outOf]; //index of ID's for the quiz
     Random rand = new Random();
-    int noWords = 0;
+    int noWords = 0; //words in DB
+    char type;
     
-    PreparedStatement retrieve = null;
-    String wordString = "SELECT * FROM words WHERE wordID = ?";
-    String getAllIDS = "SELECT wordID FROM words";
     
-    public Quiz()
+    
+    PreparedStatement getRandomID = null;
+    PreparedStatement storeResult = null;
+    PreparedStatement checkResult = null;
+    PreparedStatement getWordPart = null;
+    String getRandID = "SELECT wordID FROM words ORDER BY RAND() LIMIT 1";
+    
+    String wordGet = "SELECT ? FROM words WHERE wordID = ?";
+    
+    String resultStore = "INSERT INTO results(username, result, outOf) VALUES ('?, ?, ?');";
+    
+    String resultCheck = "SELECT ? FROM words WHERE wordID = ?";
+    
+    /**
+     * initialise prepared statements
+     * initialise random words from database
+     * @param username user running quiz
+     * @param Quiztype type of quiz running
+     */
+    public Quiz(String username, char Quiztype)
     {
-        //run get all IDs
-        for(int i=0;i<outOf;i++)
-        {
-            wordIndex[i] = rand.nextInt()%noWords;
-            //add wordID from RS[rand.nextInt()%noWords] into wordIndex
+        this.type = Quiztype;
+        try{
+            st = conn.createStatement();
+            //initialise prepared statements
+            getRandomID = conn.prepareStatement(getRandID);
+            storeResult = conn.prepareStatement(resultStore);
+            checkResult = conn.prepareStatement(resultCheck);
+            getWordPart = conn.prepareStatement(wordGet);
+            //run get all IDS
+            for(int i=0;i<=outOf;i++)
+            {
+                ResultSet res = getRandomID.executeQuery();
+                wordIndex[i] = res.getString("wordID");
+            }
         }
-        //add words of IDS to wordList
-        for(int i=0;i<outOf;i++)
+        catch (SQLException exception)
         {
-            //wordList[i] = statement[wordindex[i]]
+            System.out.println("DB error");
         }
     }
     
-    //q = wordlist index
-    //e = english
-    //w = welsh
-    //g = gender
-    //t = type
-    public String get(int q, char x)
+
+    /**
+     * e = english of welsh noun
+     * w = welsh of english noun
+     * g = gender of welsh noun
+     * 
+     * @return array of words to display in quiz
+     */
+    public String[] outputWords()
     {
-        switch(x)
+        String[] output = new String[outOf];
+        String column = "";
+        switch(type)
         {
             case 'e':
-                return wordList[q].getEnglish();
+                column = "welsh";
+                break;
+                
             case 'w':
-                return wordList[q].getWelsh();
+                column = "english";
+                break;
             case 'g':
-                return wordList[q].getGender();
-            case 't':
-                return wordList[q].getWordType();
+                column = "welsh";
             default:
-                return "error";
+                System.out.println("error");
         }
+        try{
+            //set column to get word from
+            getWordPart.setString(1, column);
+            //for length of index
+            for(int i = 0;i<=outOf;i++)
+            {
+                //set next random index
+                getWordPart.setString(2, wordIndex[i]);
+                //get and store word from said index
+                ResultSet res = getWordPart.executeQuery();
+                output[i] = res.getString(column);
+            }
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("SQL error");
+        }
+
+        return output;
+    }
+    
+    
+    /**
+     * Enter solution to the made quiz, to be run sequentially
+     * @param solution user entered solution
+     */
+    public void solve(String solution)
+    {
+        if (currentWord > outOf)
+        {
+        String column;
+        String input;
+        switch(type)
+        {
+            case 'e':
+                column = "english";
+                break;
+                
+            case 'w':
+                column = "welsh";
+                break;
+            case 'g':
+                column = "gender";
+            default:
+                System.out.println("error");
+        }
+        //select column from words where ID = wordIndex[currentWord]
+        //if result = solution from user add one to score.
+        currentWord++;
+        }
+        else
+        {
+            System.out.println("too many solutions");
+        }
+    }
+    
+    
+    public boolean storeResult()
+    {
+        return false;
+        
     }
 }

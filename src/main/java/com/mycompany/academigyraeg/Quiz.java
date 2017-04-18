@@ -48,7 +48,7 @@ public class Quiz {
     String wordGetOld = "SELECT ? FROM words WHERE wordID = ?";
     String wordGet = "SELECT * FROM words WHERE wordID = ?";
     
-    String resultStore = "INSERT INTO results(username, result, outOf) VALUES ('?, ?, ?');";
+    String resultStore = "INSERT INTO results(username, result, outOf) VALUES (?, ?, ?);";
     
     String resultCheck = "SELECT ? FROM words WHERE wordID = ?";
     
@@ -60,6 +60,10 @@ public class Quiz {
      */
     public Quiz(String username, char Quiztype)
     {
+        for(int i=0;i<outOf;i++)
+        {
+            wordIndex[i] = "";
+        }
         try
         {
             SimpleDataSource.init(stream);

@@ -164,9 +164,25 @@ public class Quiz {
     }
     
     
+    /**
+     * store final data of quiz into database
+     * @return successful store or not
+     */
     public boolean storeResult()
     {
-        return false;
+        try
+        {
+            storeResult.setString(1,username);
+            storeResult.setString(2,""+score);
+            storeResult.setString(3,""+outOf);
+            storeResult.executeUpdate();
+            return true;
+        }
+        catch(SQLException esception)
+        {
+            System.out.println("sql error");
+            return false;
+        }
         
     }
 }

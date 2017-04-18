@@ -7,10 +7,12 @@ package com.mycompany.academigyraeg;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,7 +30,28 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         
+        String user = request.getParameter("user");
+        String pass = request.getParameter("pass");
+        
+        HttpSession session = request.getSession();
+        
+        if(LoginValidate.validateUser(user, pass)){
+            RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
+            
+            session.setAttribute("user", user);
+            
+            rs.forward(request, response);
+        }else{
+            out.println("Username or Password incorrect");
+            
+            session.invalidate();
+            
+            RequestDispatcher rs = request.getRequestDispatcher("index.html");
+            rs.include(request, response);
+        }
         
     }
 

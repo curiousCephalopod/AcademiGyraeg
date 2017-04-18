@@ -5,31 +5,44 @@
  */
 package com.mycompany.academigyraeg;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Josh
  */
 public class LoginValidate {
-    public static boolean validateUser(String username, String pass) 
-     {
-      boolean st =false;
-      try{
-
-	 //loading drivers for mysql
-         Class.forName("com.mysql.jdbc.Driver");
-
- 	 //creating connection with the database 
-         Connection con = DriverManager.getConnection("jdbc:mysql:/ /localhost:3306/test","root","studytonight");
-         PreparedStatement ps = con.prepareStatement("select * from register where email=? and pass=?");
-         ps.setString(1, email);
-         ps.setString(2, pass);
-         ResultSet rs =ps.executeQuery();
-         st = rs.next();
+    
+    
+    public static boolean validateUser(String username, String pass){
+        // Retrieve the properties
+        InputStream stream = LoginValidate.class.getResourceAsStream("/database.properties");
         
-      }catch(Exception e)
-      {
-          e.printStackTrace();
-      }
-         return st;                 
-  } 
+        try {
+            // Initialise the data source using the properties
+            SimpleDataSource.init(stream);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(LoginValidate.class.getName()).log(Level.SEVERE, "Malformed Properties File", ex);
+        }
+        boolean user = false;
+        try (Connection conn = SimpleDataSource.getConnection()){
+           
+           PreparedStatement ps = conn.prepareStatement("SELECT * FROM login WHERE username = ? AND password = ?");
+           ps.setString(1, username);
+           ps.setString(2, pass);
+           ResultSet rs = ps.executeQuery();
+           user = rs.next();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginValidate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return user;
+    }
 }

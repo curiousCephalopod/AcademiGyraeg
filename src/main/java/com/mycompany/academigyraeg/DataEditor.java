@@ -27,6 +27,9 @@ public class DataEditor {
     PreparedStatement updateWord = null;
     PreparedStatement deleteWord = null;
     PreparedStatement addWord = null;
+    PreparedStatement addUser = null;
+    
+    String addUserString = "INSERT INTO login VALUES(username, password, usertype) VALUES (?, ?, ?);";
     
     public DataEditor(String username)
     {
@@ -34,7 +37,7 @@ public class DataEditor {
         checkWordExists = conn.prepareStatement("SELECT wordID FROM words WHERE ? = ?");
         updateWord = conn.prepareStatement("UPDATE words SET english = ?, welsh = ?, wordType = ?, wordGender = ? WHERE wordID = ?");
         deleteWord = conn.prepareStatement("DELETE FROM words WHERE wordID = ?");
-        addWord = conn.prepareStatement("INSERT INTO words(english, welsh, wordType, wordGender) VALUES ('?','?','?','?')");
+        addWord = conn.prepareStatement("INSERT INTO words(english, welsh, wordType, wordGender) VALUES (?,?,?,?)");
         }
         catch(SQLException exception)
         {
@@ -96,6 +99,26 @@ public class DataEditor {
             return false;
         }
     }
+    
+    public boolean addAccount(String username, String password, String userType)
+    {
+        try
+        {
+            addUser = conn.prepareStatement(addUserString);
+            addUser.setString(1, username);
+            addUser.setString(2, password);
+            addUser.setString(3, userType);
+            addUser.executeQuery();
+            return true;
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("error adding user");
+            return false;
+        }
+    }
+    
+    
 }
 
 

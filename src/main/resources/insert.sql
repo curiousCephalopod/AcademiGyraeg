@@ -21,5 +21,4 @@ INSERT INTO words(english, welsh, wordType, wordGender) VALUES
 ('shirt', 'crys', 'noun', 'f'),
 ('socks', 'sanau', 'noun', 'f'),
 ('son', 'mab', 'noun', 'm'),
-('son', 'mab', 'noun', 'm'),
 ('dancer', 'dawnsiwr', 'noun', 'm');

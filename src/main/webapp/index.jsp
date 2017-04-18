@@ -44,7 +44,6 @@
                         <li><a href="EditDict.jsp">Edit Dictionary</a></li>
                         <li><a href="ProfileServlet">View Profile</a></li>
                     </ul>
-                    <!-- Login in button. TODO: Slightly shift to left? -->
                     <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal" style="margin-right:10px">Sign In</button>
                     <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#register-modal" style="margin-right:10px">Register</button>
                 </div>
@@ -77,6 +76,12 @@
                     </form>
                 </div>
             </div>
+        </div>
+        
+        <!-- add text to page so it's not empty -->
+        <br><br>
+        <div align="center">
+            <h1>WELCOME TO ACADEMI GYRAEG</h1>
         </div>
     </body>
 </html>

@@ -77,10 +77,12 @@ public class QuizServlet extends HttpServlet {
             String answer = request.getParameter("answer");
             session.setAttribute("answer", quiz.solve(answer));
         }
+        
         session.setAttribute("current", quiz.currentWord);
         RequestDispatcher rs;
         if(quiz.currentWord == (quiz.outOf - 1)){
             session.setAttribute("score", quiz.score);
+            quiz.storeResult();
             rs = request.getRequestDispatcher("QuizResult.jsp");
         }else{
             session.setAttribute("question", quiz.getCurrentWord());

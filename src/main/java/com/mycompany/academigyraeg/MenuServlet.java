@@ -35,7 +35,7 @@ public class MenuServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         HttpSession session = request.getSession(false);
-        if(session != null){
+        if(session != null || session.getAttribute("user") != null){
 
             RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
             rs.forward(request, response);

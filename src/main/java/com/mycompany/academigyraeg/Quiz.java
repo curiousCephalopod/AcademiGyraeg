@@ -39,14 +39,10 @@ public class Quiz {
     char type;
     
     
-    
+    //SQL statement list
     String getRandID = "SELECT wordID FROM words ORDER BY RAND() LIMIT 1";
-    
-    String wordGetOld = "SELECT ? FROM words WHERE wordID = ?";
     String wordGet = "SELECT * FROM words WHERE wordID = ?";
-    
     String resultStore = "INSERT INTO results(username, quizType, result, outOf, dateTaken) VALUES (?, ?, ?, ?, ?);";
-    
     String resultCheck = "SELECT ? FROM words WHERE wordID = ?";
     
     /**
@@ -70,7 +66,7 @@ public class Quiz {
         try (Connection conn = SimpleDataSource.getConnection()){
             Statement st = conn.createStatement();
             
-            //run get all IDs
+            //fill array with random wordID's from DB
             for(int i=0;i<outOf;i++)
             {
                 ResultSet res = st.executeQuery(getRandID);
@@ -87,55 +83,6 @@ public class Quiz {
     }
     
     
-    /*
-     * e = english of welsh noun
-     * w = welsh of english noun
-     * g = gender of welsh noun
-     * ** ^ words to display on question
-     * @return array of words to display in quiz
-     */
-    /*
-    public String[] outputWords()
-    {
-        String[] output = new String[outOf];
-        String column = "";
-        switch(type)
-        {
-            case 'e':
-                column = "welsh";
-                break;
-                
-            case 'w':
-                column = "english";
-                break;
-            case 'g':
-                column = "welsh";
-            default:
-                System.out.println("error");
-        }
-        
-        try{
-            //set column to get word from
-            getWordPart.setString(1, column);
-            //for length of index
-            for(int i = 0;i<=outOf;i++)
-            {
-                //set next random index
-                getWordPart.setInt(2, wordIndex[i]);
-                //get and store word from said index
-                ResultSet res = getWordPart.executeQuery();
-                output[i] = res.getString(column);
-            }
-        }
-        catch(SQLException exception)
-        {
-            System.out.println("SQL error(word ouput)");
-        }
-
-        return output;
-    }
-    */
-    
     /**
      * e = english of welsh noun
      * w = welsh of english noun
@@ -146,6 +93,7 @@ public class Quiz {
     public String getCurrentWord(){
         String output = "";
         String column;
+        //set column name based on type of quiz running
         switch(type){
             case 'e':
                 column = "welsh";
@@ -193,6 +141,7 @@ public class Quiz {
         {
             String column = "";
             String input;
+            //set column name based on type of quiz running
             switch(type)
             {
                 case 'e':
@@ -212,9 +161,10 @@ public class Quiz {
                 getWordPart.setInt(1,wordIndex[currentWord]);
                 ResultSet rs = getWordPart.executeQuery();
                 rs.next();
-                //check user input again required column of current word
+                //check user input against required column of current word
                 if(solution.equals(rs.getString(column)))
                 {
+                    //if true increment score and current word index
                     score++;
                     currentWord++;
                     return true;
@@ -230,8 +180,6 @@ public class Quiz {
                 System.out.println("answer retrieval error");
                 return false;
             }
-            //select column from words where ID = wordIndex[currentWord]
-            //if result = solution from user add one to score.
         }
         else
         {
@@ -251,11 +199,13 @@ public class Quiz {
         java.sql.Date d = new Date(new java.util.Date().getTime());
         try (Connection conn = SimpleDataSource.getConnection()){
             PreparedStatement storeResult = conn.prepareStatement(resultStore);
+            //set data from current quiz
             storeResult.setString(1,username);
             storeResult.setString(2,""+type);
             storeResult.setString(3,""+score);
             storeResult.setString(4,""+outOf);
             storeResult.setDate(5,d);
+            //submit result to DB
             storeResult.executeUpdate();
             storeResult.close();
             return true;

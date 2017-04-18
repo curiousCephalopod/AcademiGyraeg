@@ -35,15 +35,12 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <!-- TODO: Organise web pages into nav links -->
-                        <li class="active"><a href="index.jsp">Home</a></li>
+                        <li><a href="index.jsp">Home</a></li>
                         <li><a href="MenuServlet">Quiz Menu</a></li>
                         <li><a href="EditDict.jsp">Edit Dictionary</a></li>
-                        <li><a href="ViewProfile.jsp">View Profile</a></li>
-                        
-                        
-                    <!-- Login in button. TODO: Slightly shift to left? -->
-                    <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal">Sign In</button>
-                    <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#register-modal">Register</button>
+                        <li active="true"><a href="ViewProfile.jsp">View Profile</a></li>
+                    </ul>
+                    <p class="navbar-text">Welcome, ${user}</p>
                 </div>
             </div>
         </nav>

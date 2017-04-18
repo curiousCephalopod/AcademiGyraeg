@@ -19,4 +19,7 @@ INSERT INTO words VALUES
 ('room', 'ystafell', 'noun', 'f'),
 ('rug', 'mat', 'noun', 'f'),
 ('shirt', 'crys', 'noun', 'f'),
-('socks', 'sanau', 'noun', 'f');
+('socks', 'sanau', 'noun', 'f'),
+('son', 'mab', 'noun', 'm'),
+('son', 'mab', 'noun', 'm'),
+('dancer', 'dawnsiwr', 'noun', 'm');

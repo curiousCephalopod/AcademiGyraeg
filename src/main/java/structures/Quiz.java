@@ -32,6 +32,7 @@ public class Quiz {
     String wordIndex[] = new String[outOf]; //index of ID's for the quiz
     Random rand = new Random();
     int noWords = 0; //words in DB
+    int score;
     char type;
     
     

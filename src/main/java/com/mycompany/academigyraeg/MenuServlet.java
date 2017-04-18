@@ -16,12 +16,12 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Josh
+ * @author eeu67d
  */
-public class LoginServlet extends HttpServlet {
+public class MenuServlet extends HttpServlet {
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -29,31 +29,20 @@ public class LoginServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        
-        HttpSession session = request.getSession();
-        
-        if(LoginValidate.validateUser(user, pass)){
+        HttpSession session = request.getSession(false);
+        if(session != null){
+
             RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
-            
-            session.setAttribute("user", user);
-            session.setAttribute("message", "User " + user + " logged in.");
-            
             rs.forward(request, response);
         }else{
-            session.setAttribute("message", "Invalid username or password.");
-            
-            session.invalidate();
             
             RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
-            rs.include(request, response);
+            rs.forward(request, response);
         }
-        
     }
-
 }

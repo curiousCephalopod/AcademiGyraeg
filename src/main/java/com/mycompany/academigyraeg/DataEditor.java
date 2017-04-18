@@ -31,6 +31,10 @@ public class DataEditor {
     
     String addUserString = "INSERT INTO login VALUES(username, password, usertype) VALUES (?, ?, ?);";
     
+    /**
+     * Constructs data editor object
+     * @param username username of current user
+     */
     public DataEditor(String username)
     {
         try{
@@ -45,7 +49,15 @@ public class DataEditor {
         }
         this.username = username;
     }
-    
+    /**
+     * updates a word within the database
+     * @param ID of word to be edited
+     * @param english translation of the word
+     * @param welsh word
+     * @param type of word
+     * @param gender of word
+     * @return update success status
+     */
     public boolean updateWord(int ID, String english, String welsh, char type, char gender)
     {
         try
@@ -65,7 +77,11 @@ public class DataEditor {
         }
         
     }
-    
+    /**
+     * Delete word from database
+     * @param ID of word to be deleted
+     * @return delete success status
+     */
     public boolean deleteWord(int ID)
     {
         try
@@ -80,7 +96,14 @@ public class DataEditor {
             return false;
         }
     }
-    
+    /**
+     * add new word to database
+     * @param english translation
+     * @param welsh word
+     * @param type of word
+     * @param gender of word
+     * @return status of word addition
+     */
     public boolean addWord(String english, String welsh, char type, char gender)
     {
         
@@ -99,7 +122,13 @@ public class DataEditor {
             return false;
         }
     }
-    
+    /**
+     * adds new account to the database
+     * @param username of new account
+     * @param password of new account
+     * @param userType user classification
+     * @return status of user addition
+     */
     public boolean addAccount(String username, String password, String userType)
     {
         try

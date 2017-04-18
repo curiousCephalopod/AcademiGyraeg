@@ -34,7 +34,8 @@ public class QuizServlet extends HttpServlet {
         
         Quiz quiz = (Quiz)session.getAttribute("quizObject");
         if(quiz == null){
-        
+            // First run
+            
             char quizType = request.getParameter("quiz").charAt(0);
             String quizName;
             String firstLabel;
@@ -68,9 +69,15 @@ public class QuizServlet extends HttpServlet {
             session.setAttribute("secondLabel", secondLabel);
             
             quiz = new Quiz((String)session.getAttribute("user"), quizType);
+        }else{
+            // Next question
+            String answer = request.getParameter("answer");
+            quiz.solve(answer);
         }
         
-        RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
+        session.setAttribute("question", quiz.getCurrentWord());
+        
+        RequestDispatcher rs = request.getRequestDispatcher("QuizView.jsp");
 
         rs.include(request, response);
     }

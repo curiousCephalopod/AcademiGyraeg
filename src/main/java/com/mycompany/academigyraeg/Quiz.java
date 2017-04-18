@@ -42,7 +42,8 @@ public class Quiz {
     PreparedStatement getWordPart = null;
     String getRandID = "SELECT wordID FROM words ORDER BY RAND() LIMIT 1";
     
-    String wordGet = "SELECT ? FROM words WHERE wordID = ?";
+    String wordGetOld = "SELECT ? FROM words WHERE wordID = ?";
+    String wordGet = "SELECT * FROM words WHERE wordID = ?";
     
     String resultStore = "INSERT INTO results(username, result, outOf) VALUES ('?, ?, ?');";
     
@@ -63,7 +64,7 @@ public class Quiz {
             getRandomID = conn.prepareStatement(getRandID);
             storeResult = conn.prepareStatement(resultStore);
             checkResult = conn.prepareStatement(resultCheck);
-            getWordPart = conn.prepareStatement(wordGet);
+            getWordPart = conn.prepareStatement(wordGetOld);
             //run get all IDS
             for(int i=0;i<=outOf;i++)
             {
@@ -124,6 +125,44 @@ public class Quiz {
         return output;
     }
     
+    /**
+     * e = english of welsh noun
+     * w = welsh of english noun
+     * g = gender of welsh noun
+     * ** ^ words to display on question
+     * @return array of words to display in quiz
+     */
+    public String getCurrentWord(){
+        String output = "";
+        String column;
+        switch(type){
+            case 'e':
+                column = "welsh";
+                break;
+            case 'w':
+                column = "english";
+                break;
+            case 'g':
+                column = "welsh";
+                break;
+            default:
+                column = "welsh";
+                System.out.println("error");
+                break;
+        }
+        try{
+            // Form query
+            getWordPart.setString(1, wordIndex[currentWord]);
+            // Execute query
+            ResultSet rs = getWordPart.executeQuery();
+            // Retrieve required word
+            output = rs.getString(column);
+        }catch(SQLException exception){
+            System.out.println("SQL error");
+        }
+
+        return output;
+    }
     
     /**
      * Enter solution to the made quiz, to be run sequentially

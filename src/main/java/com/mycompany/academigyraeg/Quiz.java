@@ -200,10 +200,11 @@ public class Quiz {
             PreparedStatement storeResult = conn.prepareStatement(resultStore);
             //set data from current quiz
             storeResult.setString(1,username);
-            storeResult.set
-            storeResult.setString(3,""+score);
-            storeResult.setString(4,""+outOf);
+            storeResult.setString(2, "" + type);
+            storeResult.setInt(3, score);
+            storeResult.setInt(4, outOf);
             //submit result to DB
+            System.out.println("execute");
             storeResult.executeUpdate();
             storeResult.close();
             return true;

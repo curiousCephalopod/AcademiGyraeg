@@ -81,7 +81,7 @@ public class Quiz {
      * e = english of welsh noun
      * w = welsh of english noun
      * g = gender of welsh noun
-     * 
+     * ** ^ words to display on question
      * @return array of words to display in quiz
      */
     public String[] outputWords()
@@ -126,31 +126,36 @@ public class Quiz {
     
     /**
      * Enter solution to the made quiz, to be run sequentially
+     * e = english of welsh noun
+     * w = welsh of english noun
+     * g = gender of welsh noun
+     * ** ^ words to compare against for answers
      * @param solution user entered solution
      */
     public void solve(String solution)
     {
+        //check if running for question that does not exist
         if (currentWord > outOf)
         {
-        String column;
-        String input;
-        switch(type)
-        {
-            case 'e':
-                column = "english";
-                break;
-                
-            case 'w':
-                column = "welsh";
-                break;
-            case 'g':
-                column = "gender";
-            default:
-                System.out.println("error");
-        }
-        //select column from words where ID = wordIndex[currentWord]
-        //if result = solution from user add one to score.
-        currentWord++;
+            String column;
+            String input;
+            switch(type)
+            {
+                case 'e':
+                    column = "english";
+                    break;
+
+                case 'w':
+                    column = "welsh";
+                    break;
+                case 'g':
+                    column = "gender";
+                default:
+                    System.out.println("error");
+            }
+            //select column from words where ID = wordIndex[currentWord]
+            //if result = solution from user add one to score.
+            currentWord++;
         }
         else
         {

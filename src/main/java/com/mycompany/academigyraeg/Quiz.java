@@ -8,10 +8,12 @@ package com.mycompany.academigyraeg;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,7 +45,7 @@ public class Quiz {
     String wordGetOld = "SELECT ? FROM words WHERE wordID = ?";
     String wordGet = "SELECT * FROM words WHERE wordID = ?";
     
-    String resultStore = "INSERT INTO results(username, result, outOf) VALUES (?, ?, ?);";
+    String resultStore = "INSERT INTO results(username, quizType, result, outOf, dateTaken) VALUES (?, ?, ?, ?, ?);";
     
     String resultCheck = "SELECT ? FROM words WHERE wordID = ?";
     
@@ -245,11 +247,15 @@ public class Quiz {
      */
     public boolean storeResult()
     {
+        
+        java.sql.Date d = new Date(new java.util.Date().getTime());
         try (Connection conn = SimpleDataSource.getConnection()){
             PreparedStatement storeResult = conn.prepareStatement(resultStore);
             storeResult.setString(1,username);
-            storeResult.setString(2,""+score);
-            storeResult.setString(3,""+outOf);
+            storeResult.setString(2,""+type);
+            storeResult.setString(3,""+score);
+            storeResult.setString(4,""+outOf);
+            storeResult.setDate(5,d);
             storeResult.executeUpdate();
             storeResult.close();
             return true;

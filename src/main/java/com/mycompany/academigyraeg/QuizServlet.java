@@ -32,7 +32,7 @@ public class QuizServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         
-        System.out.println(request.getPathInfo());
+        System.out.println("Path " + request.getPathInfo());
         Quiz quiz = (Quiz)session.getAttribute("quizObject");
         if(quiz == null){
             // First run

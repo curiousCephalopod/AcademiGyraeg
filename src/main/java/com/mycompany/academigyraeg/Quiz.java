@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,16 +24,13 @@ public class Quiz {
 
     InputStream stream = Quiz.class.getResourceAsStream("/database.properties");
     
-    Connection conn;
-    Statement st;
-    
     
         
     
     int outOf = 20; //total words of quiz
     int currentWord = 0; //current word incrementer
     String username; //user working current test
-    String wordIndex[] = new String[outOf]; //index of ID's for the quiz
+    int wordIndex[] = new int[outOf]; //index of ID's for the quiz
     Random rand = new Random();
     int noWords = 0; //words in DB
     int score;
@@ -39,16 +38,12 @@ public class Quiz {
     
     
     
-    PreparedStatement getRandomID = null;
-    PreparedStatement storeResult = null;
-    PreparedStatement checkResult = null;
-    PreparedStatement getWordPart = null;
     String getRandID = "SELECT wordID FROM words ORDER BY RAND() LIMIT 1";
     
     String wordGetOld = "SELECT ? FROM words WHERE wordID = ?";
     String wordGet = "SELECT * FROM words WHERE wordID = ?";
     
-    String resultStore = "INSERT INTO results(username, result, outOf) VALUES ('?, ?, ?');";
+    String resultStore = "INSERT INTO results(username, result, outOf) VALUES (?, ?, ?);";
     
     String resultCheck = "SELECT ? FROM words WHERE wordID = ?";
     
@@ -60,30 +55,33 @@ public class Quiz {
      */
     public Quiz(String username, char Quiztype)
     {
-        try
-        {
+        
+        try {
             SimpleDataSource.init(stream);
-            conn = SimpleDataSource.getConnection();
+        } catch (IOException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch(IOException | ClassNotFoundException | SQLException exception)
-        {
-            System.out.println("error");
-        }
+        
         this.type = Quiztype;
-        try{
+        try (Connection conn = SimpleDataSource.getConnection()){
+            Statement st = conn.createStatement();
             
-            st = conn.createStatement();
-            //initialise prepared statements
-            getRandomID = conn.prepareStatement(getRandID);
-            storeResult = conn.prepareStatement(resultStore);
-            checkResult = conn.prepareStatement(resultCheck);
-            getWordPart = conn.prepareStatement(wordGet);
-            //run get all IDS
-            for(int i=0;i<=outOf;i++)
+            //run get all IDs
+            System.out.println("Start");
+            for(int i=0;i<outOf;i++)
             {
-                ResultSet res = getRandomID.executeQuery();
-                wordIndex[i] = res.getString("wordID");
+                System.out.println(i);
+                ResultSet res = st.executeQuery(getRandID);
+                System.out.println("retreived");
+                System.out.println(res.next());
+                wordIndex[i] = res.getInt("wordID");
+                System.out.println(wordIndex[i]);
             }
+            
+            st.close();
+            System.out.println("Finish");
         }
         catch (SQLException exception)
         {
@@ -91,14 +89,15 @@ public class Quiz {
         }
     }
     
-
-    /**
+    
+    /*
      * e = english of welsh noun
      * w = welsh of english noun
      * g = gender of welsh noun
      * ** ^ words to display on question
      * @return array of words to display in quiz
      */
+    /*
     public String[] outputWords()
     {
         String[] output = new String[outOf];
@@ -125,7 +124,7 @@ public class Quiz {
             for(int i = 0;i<=outOf;i++)
             {
                 //set next random index
-                getWordPart.setString(2, wordIndex[i]);
+                getWordPart.setInt(2, wordIndex[i]);
                 //get and store word from said index
                 ResultSet res = getWordPart.executeQuery();
                 output[i] = res.getString(column);
@@ -138,6 +137,7 @@ public class Quiz {
 
         return output;
     }
+    */
     
     /**
      * e = english of welsh noun
@@ -164,13 +164,15 @@ public class Quiz {
                 System.out.println("error");
                 break;
         }
-        try{
+        try (Connection conn = SimpleDataSource.getConnection()){
             // Form query
-            getWordPart.setString(1, wordIndex[currentWord]);
+            PreparedStatement getWordPart = conn.prepareStatement(wordGet);
+            getWordPart.setInt(1, wordIndex[currentWord]);
             // Execute query
             ResultSet rs = getWordPart.executeQuery();
             // Retrieve required word
             output = rs.getString(column);
+            getWordPart.close();
         }catch(SQLException exception){
             System.out.println("SQL error");
         }
@@ -207,9 +209,9 @@ public class Quiz {
                 default:
                     System.out.println("error");
             }
-            try
-            {
-                getWordPart.setString(1,wordIndex[currentWord]);
+            try (Connection conn = SimpleDataSource.getConnection()){
+                PreparedStatement getWordPart = conn.prepareStatement(wordGet);
+                getWordPart.setInt(1,wordIndex[currentWord]);
                 ResultSet rs = getWordPart.executeQuery();
                 if(solution.equals(rs.getString(column)))
                 {
@@ -237,12 +239,13 @@ public class Quiz {
      */
     public boolean storeResult()
     {
-        try
-        {
+        try (Connection conn = SimpleDataSource.getConnection()){
+            PreparedStatement storeResult = conn.prepareStatement(resultStore);
             storeResult.setString(1,username);
             storeResult.setString(2,""+score);
             storeResult.setString(3,""+outOf);
             storeResult.executeUpdate();
+            storeResult.close();
             return true;
         }
         catch(SQLException esception)

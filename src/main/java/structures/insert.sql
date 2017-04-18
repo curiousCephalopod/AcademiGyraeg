@@ -1,4 +1,4 @@
-INSERT INTO words VALUES
+INSERT INTO words(english, welsh, wordType, wordGender) VALUES
 ('colours', 'lliwiau', 'adjective', 'n'),
 ('bed', 'gwely', 'noun', 'f'),
 ('chair', 'cadeirydd', 'noun', 'f'),

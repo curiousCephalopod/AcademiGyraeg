@@ -254,7 +254,7 @@ public class Quiz {
             storeResult.close();
             return true;
         }
-        catch(SQLException esception)
+        catch(SQLException exception)
         {
             System.out.println("result store error");
             return false;

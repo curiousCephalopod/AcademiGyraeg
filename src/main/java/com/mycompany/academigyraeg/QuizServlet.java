@@ -70,20 +70,23 @@ public class QuizServlet extends HttpServlet {
             session.setAttribute("answer", "");
             
             quiz = new Quiz((String)session.getAttribute("user"), quizType);
+            session.setAttribute("outOf", quiz.outOf);
             session.setAttribute("quizObject", quiz);
         }else{
             // Next question
             String answer = request.getParameter("answer");
             session.setAttribute("answer", quiz.solve(answer));
         }
-        
+        session.setAttribute("current", quiz.currentWord);
+        RequestDispatcher rs;
         if(quiz.currentWord == (quiz.outOf - 1)){
-            
+            session.setAttribute("score", quiz.score);
+            rs = request.getRequestDispatcher("QuizResult.jsp");
+        }else{
+            session.setAttribute("question", quiz.getCurrentWord());
+            rs = request.getRequestDispatcher("QuizView.jsp");
         }
-        session.setAttribute("question", quiz.getCurrentWord());
         
-        RequestDispatcher rs = request.getRequestDispatcher("QuizView.jsp");
-
         rs.include(request, response);
     }
 

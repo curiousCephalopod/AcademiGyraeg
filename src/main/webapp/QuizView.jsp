@@ -20,6 +20,7 @@
     </head>
     <body>
         <h1>${quizName}</h1>
+        Current question: ${current} out of ${outOf}.
         Previous answer was: ${answer}
         <form action="QuizServlet" method="POST">
             ${firstLabel}: ${question} <br>

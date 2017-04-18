@@ -22,6 +22,8 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.js"></script>
 
+        <br>
+        <br>
         <h3>${message}</h3>
         
         <!-- Start Navigation Bar script -->

@@ -62,4 +62,40 @@ public class DataEditor {
         }
         
     }
+    
+    public boolean deleteWord(int ID)
+    {
+        try
+        {
+            deleteWord.setString(1,""+ID);
+            deleteWord.executeUpdate();
+            return true;
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("SQL delete error");
+            return false;
+        }
+    }
+    
+    public boolean addWord(String english, String welsh, char type, char gender)
+    {
+        
+        try
+        {
+            addWord.setString(1, english);
+            addWord.setString(2, welsh);
+            addWord.setString(3, ""+type);
+            addWord.setString(4, ""+gender);
+            addWord.executeUpdate();
+            return true;
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("sql insert error");
+            return false;
+        }
+    }
 }
+
+

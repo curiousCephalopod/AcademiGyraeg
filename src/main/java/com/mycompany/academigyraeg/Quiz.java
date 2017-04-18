@@ -5,6 +5,7 @@
  */
 package com.mycompany.academigyraeg;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,9 @@ import java.util.Random;
  * @author Ed
  */
 public class Quiz {
-    InputStream stream;
+
+    InputStream stream = Quiz.class.getResourceAsStream("/database.properties");
+    
     Connection conn;
     Statement st;
     
@@ -57,8 +60,18 @@ public class Quiz {
      */
     public Quiz(String username, char Quiztype)
     {
+        try
+        {
+            SimpleDataSource.init(stream);
+            conn = SimpleDataSource.getConnection();
+        }
+        catch(IOException | ClassNotFoundException | SQLException exception)
+        {
+            System.out.println("error");
+        }
         this.type = Quiztype;
         try{
+            
             st = conn.createStatement();
             //initialise prepared statements
             getRandomID = conn.prepareStatement(getRandID);
@@ -104,6 +117,7 @@ public class Quiz {
             default:
                 System.out.println("error");
         }
+        
         try{
             //set column to get word from
             getWordPart.setString(1, column);

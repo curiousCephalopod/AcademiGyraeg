@@ -77,7 +77,7 @@ public class Quiz {
             getRandomID = conn.prepareStatement(getRandID);
             storeResult = conn.prepareStatement(resultStore);
             checkResult = conn.prepareStatement(resultCheck);
-            getWordPart = conn.prepareStatement(wordGetOld);
+            getWordPart = conn.prepareStatement(wordGet);
             //run get all IDS
             for(int i=0;i<=outOf;i++)
             {

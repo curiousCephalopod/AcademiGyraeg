@@ -48,6 +48,7 @@
                     </ul>
                     <!-- Login in button. TODO: Slightly shift to left? -->
                     <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal">Sign In</button>
+                    <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#register-modal">Register</button>
                 </div>
             </div>
         </nav>
@@ -55,17 +56,13 @@
         <!-- Start login script -->
         <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" style="display: none;">
             <div class="modal-dialog">
-                <div class="loginmodal-container">
+                <div class="usermodal-container">
                     <h1>Login to Your Account</h1><br>
                     <form>
                         <input type="text" name="user" placeholder="Username">
                         <input type="password" name="pass" placeholder="Password">
-                        <input type="submit" name="login" class="loginmodal-submit" value="Login">
+                        <input type="submit" name="login" class="usermodal-submit" value="Login">
                     </form>
-
-                    <div class="login-help">
-                        <a data-toggle="modal" data-target="#login-modal" >Register</a> - <a href="#">Forgot Password</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -73,12 +70,12 @@
         <!-- Start register script -->
         <div class="modal fade" id="register-modal" tabindex="-1" role="dialog" style="display: none;">
             <div class="modal-dialog">
-                <div class="registermodal-container">
+                <div class="usermodal-container">
                     <h1>Register a New Account</h1><br>
-                    <form>
+                    <form action="LoginServlet" method="POST">
                         <input type="text" name="user" placeholder="Username">
                         <input type="password" name="pass" placeholder="Password">
-                        <input type="submit" name="login" class="registermodal-submit" value="Register">
+                        <input type="submit" name="login" class="usermodal-submit" value="Register">
                     </form>
                 </div>
             </div>

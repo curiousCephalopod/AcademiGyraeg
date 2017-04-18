@@ -25,7 +25,7 @@ public class Quiz {
     
     public Quiz()
     {
-        //run get all IDS
+        //run get all IDs
         for(int i=0;i<outOf;i++)
         {
             wordIndex[i] = rand.nextInt()%noWords;

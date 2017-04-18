@@ -54,6 +54,7 @@
                 <input type="radio" name="quiz" value="g"> 1)Gender of Welsh Word<br>
                 <input type="radio" name="quiz" value="e"> 2)Welsh to English<br>
                 <input type="radio" name="quiz" value="w"> 3)English to Welsh
+                <input type="hidden" name="url" value="menu">
                 <input type="submit" name="choose" class="btn" value="Choose">
             </form>
         </div>

@@ -32,43 +32,44 @@ public class QuizServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         
+        Quiz quiz = (Quiz)session.getAttribute("quizObject");
+        if(quiz == null){
         
-        char quizType = request.getParameter("quiz").charAt(0);
-        String quizName;
-        String firstLabel;
-        String secondLabel;
-        switch(quizType){
-            case 'g':
-                quizName = "Gender of Welsh Word";
-                firstLabel = "Welsh Word";
-                secondLabel = "Gender";
-                break;
-            case 'e':
-                quizName = "Welsh to English";
-                firstLabel = "Welsh Word";
-                secondLabel = "English Word";
-                break;
-            case 'w':
-                quizName = "English to Welsh";
-                firstLabel = "English Word";
-                secondLabel = "Welsh Word";
-                break;
-            default:
-                quizType = 'g';
-                quizName = "Gender of Welsh Word";
-                firstLabel = "Welsh Word";
-                secondLabel = "Gender";
-                break;
+            char quizType = request.getParameter("quiz").charAt(0);
+            String quizName;
+            String firstLabel;
+            String secondLabel;
+            switch(quizType){
+                case 'g':
+                    quizName = "Gender of Welsh Word";
+                    firstLabel = "Welsh Word";
+                    secondLabel = "Gender";
+                    break;
+                case 'e':
+                    quizName = "Welsh to English";
+                    firstLabel = "Welsh Word";
+                    secondLabel = "English Word";
+                    break;
+                case 'w':
+                    quizName = "English to Welsh";
+                    firstLabel = "English Word";
+                    secondLabel = "Welsh Word";
+                    break;
+                default:
+                    quizType = 'g';
+                    quizName = "Gender of Welsh Word";
+                    firstLabel = "Welsh Word";
+                    secondLabel = "Gender";
+                    break;
+            }
+
+            session.setAttribute("quizName", quizName);
+            session.setAttribute("firstLabel", firstLabel);
+            session.setAttribute("secondLabel", secondLabel);
         }
-        
-        session.setAttribute("quizName", quizName);
-        session.setAttribute("firstLabel", firstLabel);
-        session.setAttribute("secondLabel", secondLabel);
         
         RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
 
-        session.setAttribute("user", user);
-        session.setAttribute("message", "User " + user + " logged in.");
 
         rs.include(request, response);
     }

@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!-- 
+    Menu for the Quiz, users can choose from 1 of 3 set quiz types.
+-->
 <html>
     <head>
         <title>Academi Gymraeg: Quiz Menu</title>

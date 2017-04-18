@@ -44,9 +44,7 @@
                         <li class="active"><a href="EditDict.jsp">Edit Dictionary</a></li>
                         <li><a href="ViewProfile.jsp">View Profile</a></li>
                     </ul>
-                    <!-- Login in button. TODO: Slightly shift to left? -->
-                    <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal">Sign In</button>
-                    <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#register-modal">Register</button>
+                    <p class="navbar-text">Welcome, ${user}</p>
                 </div>
             </div>
         </nav>

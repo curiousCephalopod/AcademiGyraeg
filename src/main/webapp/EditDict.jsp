@@ -63,7 +63,7 @@ For use of Teacher user only.
                 <input type="radio" name="option" value="delete"> Delete Entry<br><br>
                 
                 Word ID: <!--disabled until delete button is checked --> <br>
-                <input type="text" name="wordID" disabled><br><br>
+                <input type="text" name="wordIDtb" disabled><br><br>
                 
                 <!-- Search for entries of word is checked -->
                 

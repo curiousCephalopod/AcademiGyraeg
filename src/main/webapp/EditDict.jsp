@@ -15,7 +15,8 @@ For use of Teacher user only.
 -->
 <html>
     <head>
-        <title>Academi Gyraeg: Edit Dictionary</title>meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Academi Gyraeg: Edit Dictionary</title> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -25,7 +26,7 @@ For use of Teacher user only.
         <link rel="stylesheet" href="css/custom.css" type="text/css">
     </head>
     <body>
-        !-- Start Navigation Bar script -->
+        <!-- Start Navigation Bar script -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">

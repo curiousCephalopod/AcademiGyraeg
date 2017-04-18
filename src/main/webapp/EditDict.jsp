@@ -1,17 +1,15 @@
 <%-- 
     Document   : EditDict
     Created on : 18-Apr-2017, 15:47:35
-    Author     : Amber
+    Author     : eeu68b
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
-For use of Teacher user only. 
-- Enter a word
-- Lookup word
-- Show details of word in a form
-- Save or Delete button - editable form.
+    A user with teacher security can use this page, all other user types will
+    be redirected back to the index page. 
+    Words can be created, edited or deleted from the database using the form.
 -->
 <html>
     <head>
@@ -25,6 +23,7 @@ For use of Teacher user only.
         <link rel="stylesheet" href="css/snippets.css" type="text/css">
         <link rel="stylesheet" href="css/custom.css" type="text/css">
     </head>
+    
     <body>
         <!-- Start Navigation Bar script -->
         <nav class="navbar navbar-default navbar-fixed-top">
@@ -40,15 +39,12 @@ For use of Teacher user only.
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <!-- TODO: Organise web pages into nav links -->
-                        <li class="active"><a href="index.jsp">Home</a></li>
+                        <li><a href="index.jsp">Home</a></li>
                         <li><a href="MenuServlet">Quiz Menu</a></li>
-                        <li><a href="EditDict.jsp">Edit Dictionary</a></li>
+                        <li class="active"><a href="EditDict.jsp">Edit Dictionary</a></li>
                         <li><a href="ViewProfile.jsp">View Profile</a></li>
                     </ul>
-                    <!-- Login in button. TODO: Slightly shift to left? -->
-                    <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal">Sign In</button>
-                    <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#register-modal">Register</button>
+                    <p class="navbar-text">Welcome, ${user}</p>
                 </div>
             </div>
         </nav>

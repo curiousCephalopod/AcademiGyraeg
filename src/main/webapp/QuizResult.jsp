@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Academi Gymraeg: Quiz View</title>
+        <title>Academi Gymraeg: Quiz Result</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
@@ -19,6 +19,32 @@
         <link rel="stylesheet" href="css/custom.css" type="text/css">
     </head>
     <body>
+        
+    <!-- Start Navigation Bar script -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Academi Gymraeg</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.jsp">Home</a></li>
+                        <li><a href="MenuServlet">Quiz Menu</a></li>
+                        <li><a href="EditDict.jsp">Edit Dictionary</a></li>
+                        <li><a href="ViewProfile.jsp">View Profile</a></li>
+                    </ul>
+                    <p class="navbar-text">Welcome, ${user}</p>
+                </div>
+            </div>
+        </nav>
+                
+        <br><br>
         <h1>Congratulations, you finished!</h1>
         You scored ${score} out of ${outOf}.
     </body>

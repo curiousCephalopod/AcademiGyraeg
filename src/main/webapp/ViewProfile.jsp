@@ -1,7 +1,7 @@
 <%-- 
     Document   : ViewProfile
     Created on : 18-Apr-2017, 17:26:40
-    Author     : Amber
+    Author     : eeu68b
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="css/custom.css" type="text/css">
     </head>
     <body>
+        
         <!-- Start Navigation Bar script -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
@@ -62,6 +63,7 @@
                             <th>Test ID</th>
                             <th>Result</th>
                             <th>Out Of</th>
+                            <th>Date</th>
                         </tr>
                     </thread>
                     <tbody>

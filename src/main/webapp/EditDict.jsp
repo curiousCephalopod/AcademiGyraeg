@@ -44,6 +44,7 @@ For use of Teacher user only.
                         <li class="active"><a href="index.jsp">Home</a></li>
                         <li><a href="MenuServlet">Quiz Menu</a></li>
                         <li><a href="EditDict.jsp">Edit Dictionary</a></li>
+                        <li><a href="ViewProfile.jsp">View Profile</a></li>
                     </ul>
                     <!-- Login in button. TODO: Slightly shift to left? -->
                     <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal">Sign In</button>

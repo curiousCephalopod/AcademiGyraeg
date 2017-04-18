@@ -1,14 +1,15 @@
 <%-- 
-    Document   : QuizMenu
-    Created on : 18-Apr-2017, 15:38:17
-    Author     : eeu67d
+    Document   : ViewProfile
+    Created on : 18-Apr-2017, 17:26:40
+    Author     : Amber
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Academi Gymraeg: Quiz Menu</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Academi Gyraeg: View Profile</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
@@ -19,9 +20,6 @@
         <link rel="stylesheet" href="css/custom.css" type="text/css">
     </head>
     <body>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script src="js/bootstrap.js"></script>
-
         <!-- Start Navigation Bar script -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
@@ -36,26 +34,20 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.jsp">Home</a></li>
+                        <!-- TODO: Organise web pages into nav links -->
                         <li class="active"><a href="index.jsp">Home</a></li>
                         <li><a href="MenuServlet">Quiz Menu</a></li>
                         <li><a href="EditDict.jsp">Edit Dictionary</a></li>
                         <li><a href="ViewProfile.jsp">View Profile</a></li>
-                    </ul>
-                    <p class="navbar-text">Welcome, ${user}</p>
+                        
+                        
+                    <!-- Login in button. TODO: Slightly shift to left? -->
+                    <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal">Sign In</button>
+                    <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#register-modal">Register</button>
                 </div>
             </div>
         </nav>
         
-        <!--Menu Buttons Created -->
-        <div class="container">
-            <h2> Quiz Menu </h2>
-            <form action="QuizServlet" method="POST">
-                <input type="radio" name="quiz" value="g"> 1)Gender of Welsh Word<br>
-                <input type="radio" name="quiz" value="e"> 2)Welsh to English<br>
-                <input type="radio" name="quiz" value="w"> 3)English to Welsh
-                <input type="submit" name="choose" class="btn" value="Choose">
-            </form>
-        </div>
+        <h1>Display of all scores.</h1>
     </body>
 </html>

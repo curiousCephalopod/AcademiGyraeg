@@ -54,7 +54,7 @@ For use of Teacher user only.
         
        <!--Submit Buttons Created -->
         <div class="container">
-            <br><br>
+            <br>
             <h2> Dictionary Editor</h2>
             <form>
                 <!-- error check for NOT NULL and Single characters -->
@@ -66,7 +66,7 @@ For use of Teacher user only.
                 Word ID: <!--disabled until delete button is checked --> <br>
                 <input type="text" name="wordIDtb" disabled><br><br>
                 
-                <!-- Search for entries of word is checked -->
+                <!-- Lookup words for entries of word is checked -->
                 
                 English: <br>
                 <input type="text" name="english"><br><br>

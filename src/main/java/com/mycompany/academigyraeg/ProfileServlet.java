@@ -71,6 +71,8 @@ public class ProfileServlet extends HttpServlet {
             Logger.getLogger(LoginValidate.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        RequestDispatcher rs = request.getRequestDispatcher("ViewProfile.jsp");
+        rs.forward(request, response);
     }
 
 }

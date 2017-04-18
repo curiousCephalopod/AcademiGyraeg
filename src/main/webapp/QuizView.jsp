@@ -37,7 +37,7 @@
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="MenuServlet">Quiz Menu</a></li>
                         <li><a href="EditDict.jsp">Edit Dictionary</a></li>
-                        <li><a href="ViewProfile.jsp">View Profile</a></li>
+                        <li><a href="ProfileServlet">View Profile</a></li>
                     </ul>
                     <p class="navbar-text">Welcome, ${user}</p>
                 </div>

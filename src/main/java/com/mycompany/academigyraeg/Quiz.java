@@ -200,7 +200,7 @@ public class Quiz {
             PreparedStatement storeResult = conn.prepareStatement(resultStore);
             //set data from current quiz
             storeResult.setString(1,username);
-            storeResult.setString(2,""+type);
+            storeResult.set
             storeResult.setString(3,""+score);
             storeResult.setString(4,""+outOf);
             //submit result to DB

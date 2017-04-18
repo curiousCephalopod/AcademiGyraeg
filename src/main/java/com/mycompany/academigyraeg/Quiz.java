@@ -191,7 +191,7 @@ public class Quiz {
         //check if running for question that does not exist
         if (currentWord > outOf)
         {
-            String column;
+            String column = "";
             String input;
             switch(type)
             {
@@ -206,6 +206,19 @@ public class Quiz {
                     column = "gender";
                 default:
                     System.out.println("error");
+            }
+            try
+            {
+                getWordPart.setString(1,wordIndex[currentWord]);
+                ResultSet rs = getWordPart.executeQuery();
+                if(solution.equals(rs.getString(column)))
+                {
+                    score++;
+                }
+            }
+            catch(SQLException exception)
+            {
+                System.out.println("answer retrieval error");
             }
             //select column from words where ID = wordIndex[currentWord]
             //if result = solution from user add one to score.

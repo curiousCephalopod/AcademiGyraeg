@@ -15,7 +15,7 @@ For use of Teacher user only.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Academi Gyraeg: Edit Dictionary</title>meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -25,10 +25,7 @@ For use of Teacher user only.
         <link rel="stylesheet" href="css/custom.css" type="text/css">
     </head>
     <body>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script src="js/bootstrap.js"></script>
-
-        <!-- Start Navigation Bar script -->
+        !-- Start Navigation Bar script -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -43,21 +40,9 @@ For use of Teacher user only.
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <!-- TODO: Organise web pages into nav links -->
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-header">Nav header</li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
+                        <li class="active"><a href="index.jsp">Home</a></li>
+                        <li><a href="MenuServlet">Quiz Menu</a></li>
+                        <li><a href="EditDict.jsp">Edit Dictionary</a></li>
                     </ul>
                     <!-- Login in button. TODO: Slightly shift to left? -->
                     <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal">Sign In</button>
@@ -65,35 +50,37 @@ For use of Teacher user only.
                 </div>
             </div>
         </nav>
+        
        <!--Submit Buttons Created -->
         <div class="container">
+            <br><br>
             <h2> Dictionary Editor</h2>
             <form>
                 <!-- error check for NOT NULL and Single characters -->
                 Select One: <!--First choose is edit, new or delete --><br>
                 <input type="radio" name="option" value="new" checked> New Entry 
                 <input type="radio" name="option" value="edit"> Edit Entry
-                <input type="radio" name="option" value="delete"> Delete Entry
+                <input type="radio" name="option" value="delete"> Delete Entry<br><br>
                 
                 Word ID: <!--disabled until delete button is checked --> <br>
-                <input type="text" name="wordID" disabled><br>
+                <input type="text" name="wordID" disabled><br><br>
                 
                 <!-- Search for entries of word is checked -->
                 
                 English: <br>
-                <input type="text" name="english"><br>
+                <input type="text" name="english"><br><br>
                 
                 Welsh: <br>
-                <input type="text" name="welsh"><br>
+                <input type="text" name="welsh"><br><br>
                 
                 Word Type:<br>
                 <input type="radio" name="type" value="adjectives"> Adjectives
-                <input type="radio" name="type" value="noun" checked> Noun<br>
+                <input type="radio" name="type" value="noun" checked> Noun<br><br>
                 
                 Word Gender:<br>
                 <input type="radio" name="gender" value="female"> Female
                 <input type="radio" name="gender" value="male"> Male
-                <input type="radio" name="gender" value="neutral" checked> Neutral<br>
+                <input type="radio" name="gender" value="neutral" checked> Neutral<br><br>
                 
                 
             </form>

@@ -42,7 +42,7 @@ public class Quiz {
     //SQL statement list
     String getRandID = "SELECT wordID FROM words ORDER BY RAND() LIMIT 1";
     String wordGet = "SELECT * FROM words WHERE wordID = ?";
-    String resultStore = "INSERT INTO results(username, quizType, result, outOf, dateTaken) VALUES (?, ?, ?, ?, ?);";
+    String resultStore = "INSERT INTO results(username, quizType, result, outOf, dateTaken) VALUES (?, ?, ?, ?, now())";
     String resultCheck = "SELECT ? FROM words WHERE wordID = ?";
     
     /**
@@ -196,18 +196,14 @@ public class Quiz {
     public boolean storeResult()
     {
         
-        java.sql.Date d = new Date(new java.util.Date().getTime());
         try (Connection conn = SimpleDataSource.getConnection()){
             PreparedStatement storeResult = conn.prepareStatement(resultStore);
-            System.out.println("sets");
             //set data from current quiz
             storeResult.setString(1,username);
-            storeResult.setString(2,""+type);
+            storeResult.set
             storeResult.setString(3,""+score);
             storeResult.setString(4,""+outOf);
-            storeResult.setDate(5,d);
             //submit result to DB
-            System.out.println("execute");
             storeResult.executeUpdate();
             storeResult.close();
             return true;

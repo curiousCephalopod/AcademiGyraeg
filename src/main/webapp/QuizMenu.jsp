@@ -47,11 +47,11 @@
         <!--Menu Buttons Created -->
         <div class="container">
             <h2> Quiz Menu </h2>
-            <a href="/QuizView" class="btn btn-info btn-block" role="button"> 1)Gender Of Welsh Word</a> <br><br>
+            <a href="/QuizView" class="btn btn-info btn-block" role="button">1)Gender Of Welsh Word</a> <br><br>
              
-            <a href="/QuizView" class="btn btn-info btn-block" role="button"> 2)Meaning Of Welsh Word</a><br><br>
+            <a href="/QuizView" class="btn btn-info btn-block" role="button">2)Meaning Of Welsh Word</a><br><br>
             
-            <a href="/QuizView" class="btn btn-info btn-block" role="button">3) English To Welsh</a><br><br>
+            <a href="/QuizView" class="btn btn-info btn-block" role="button">3)English To Welsh</a><br><br>
             <!-- Buttons must have a reference for quiz view to read to display quiz when redirected -->
         </div>
     </body>

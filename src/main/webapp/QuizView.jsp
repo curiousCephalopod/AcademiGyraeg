@@ -21,7 +21,7 @@
     <body>
         <h1>${quizName}</h1>
         <form action="QuizServlet" method="POST">
-            ${firstLabel}: ${question}
+            ${firstLabel}: ${question} <br>
             ${secondLabel}: <input type="text" name="answer">
             <input type="submit" name="next" class="btn" value="Next">
         </form>

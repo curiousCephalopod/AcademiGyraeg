@@ -69,19 +69,15 @@ public class Quiz {
             Statement st = conn.createStatement();
             
             //run get all IDs
-            System.out.println("Start");
             for(int i=0;i<outOf;i++)
             {
                 System.out.println(i);
                 ResultSet res = st.executeQuery(getRandID);
-                System.out.println("retreived");
-                System.out.println(res.next());
+                res.next();
                 wordIndex[i] = res.getInt("wordID");
-                System.out.println(wordIndex[i]);
             }
             
             st.close();
-            System.out.println("Finish");
         }
         catch (SQLException exception)
         {
@@ -171,6 +167,7 @@ public class Quiz {
             // Execute query
             ResultSet rs = getWordPart.executeQuery();
             // Retrieve required word
+            rs.next();
             output = rs.getString(column);
             getWordPart.close();
         }catch(SQLException exception){

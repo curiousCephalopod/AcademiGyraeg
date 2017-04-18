@@ -20,6 +20,10 @@
         <servlet-name>QuizServlet</servlet-name>
         <servlet-class>com.mycompany.academigyraeg.QuizServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfileServlet</servlet-name>
+        <servlet-class>com.mycompany.academigyraeg.ProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>welcome</servlet-name>
         <url-pattern>/welcome</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>QuizServlet</servlet-name>
         <url-pattern>/QuizServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileServlet</servlet-name>
+        <url-pattern>/ProfileServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

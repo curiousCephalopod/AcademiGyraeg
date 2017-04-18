@@ -66,10 +66,11 @@ public class QuizServlet extends HttpServlet {
             session.setAttribute("quizName", quizName);
             session.setAttribute("firstLabel", firstLabel);
             session.setAttribute("secondLabel", secondLabel);
+            
+            quiz = new Quiz((String)session.getAttribute("user"), quizType);
         }
         
         RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
-
 
         rs.include(request, response);
     }

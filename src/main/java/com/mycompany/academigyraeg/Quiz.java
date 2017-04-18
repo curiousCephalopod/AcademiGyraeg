@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package structures;
+package com.mycompany.academigyraeg;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -27,7 +27,6 @@ public class Quiz {
     
     int outOf = 20; //total words of quiz
     int currentWord = 0; //current word incrementer
-    int score = 0;
     String username; //user working current test
     String wordIndex[] = new String[outOf]; //index of ID's for the quiz
     Random rand = new Random();
@@ -146,6 +145,7 @@ public class Quiz {
                 case 'e':
                     column = "english";
                     break;
+
                 case 'w':
                     column = "welsh";
                     break;

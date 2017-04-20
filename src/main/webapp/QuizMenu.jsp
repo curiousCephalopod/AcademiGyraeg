@@ -41,13 +41,13 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="index.jsp">Home</a></li>
-                        <c:if test="${!empty user}">
+                        <c:if test="${userType == 0}">
                             <li class="active"><a href="MenuServlet">Quiz Menu</a></li>
-                            <li><a href="ProfileServlet">View Profile</a></li>
                         </c:if>
-                        <c:if test="${userType == 2}">
+                        <c:if test="${userType == 1}">
                             <li><a href="DictionaryServlet">Edit Dictionary</a></li>
                         </c:if>
+                        <li><a href="ProfileServlet">View Grades</a></li>
                     </ul>
                     <p class="navbar-text">Welcome, ${user}</p>
                     <a type="button" href="LogoutServlet" class="btn btn-default navbar-btn navbar-right" style="margin-right:10px">Logout</a>

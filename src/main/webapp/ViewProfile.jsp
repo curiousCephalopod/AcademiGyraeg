@@ -38,13 +38,13 @@
                     <ul class="nav navbar-nav">
                         <!-- TODO: Organise web pages into nav links -->
                         <li><a href="index.jsp">Home</a></li>
-                        <c:if test="${!empty user}">
+                        <c:if test="${userType == 0}">
                             <li><a href="MenuServlet">Quiz Menu</a></li>
-                            <li class="active"><a href="ProfileServlet">View Profile</a></li>
                         </c:if>
-                        <c:if test="${userType == 2}">
+                        <c:if test="${userType == 1}">
                             <li><a href="DictionaryServlet">Edit Dictionary</a></li>
                         </c:if>
+                        <li class="active"><a href="ProfileServlet">View Grades</a></li>
                     </ul>
                     <p class="navbar-text">Welcome, ${user}</p>
                     <a type="button" href="LogoutServlet" class="btn btn-default navbar-btn navbar-right" style="margin-right:10px">Logout</a>
@@ -52,8 +52,13 @@
             </div>
         </nav>
         
-        
-        <!-- code for tables -->
+        <c:if test="${userType != 0}">
+            <form action="ProfileServlet" type="POST">
+                Username: <input type="text" name="searchUser" placeholder="Username">
+                <input type="submit" class="btn btn-info" name="submit" value="Submit">
+            </form>
+        </c:if>
+                        
         <div clas="container" style="margin-top:50px">
         <div class="panel panel-default">
             <div class="panel-body" style="padding:0px">

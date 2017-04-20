@@ -1,7 +1,7 @@
 <%-- 
-    Document   : EditDict
+    Document   : EditWord
     Created on : 18-Apr-2017, 15:47:35
-    Author     : eeu68b
+    Author     : eeu67d
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -14,7 +14,7 @@
 -->
 <html>
     <head>
-        <title>Academi Gyraeg: Edit Dictionary</title> 
+        <title>Academi Gyraeg: Edit Word</title> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
@@ -56,41 +56,32 @@
         </nav>
 
         <form action="EditWordServlet" method="POST">
-            <div class="container" style="margin-top:50px">
-                <div class="panel panel-default">
-                    <div class="panel-body" style="padding:0px">
-                        <table class="table table-striped table-bordered" style="margin:0px">
-                            <thread>
-                                <tr>
-                                    <th>Word ID</th>
-                                    <th>English</th>
-                                    <th>Welsh</th>
-                                    <th>Type</th>
-                                    <th>Gender</th>
-                                    <th><input type="radio" name="wordID" value="new" checked="true"> New Word</th>
-                                </tr>
-                            </thread>
-                            <tbody>
-                                <c:forEach items="${words}" var="word">
-                                    <tr>
-                                        <c:forEach items="${word}" var="item">
-                                            <td>
-                                                ${item}
-                                            </td>
-                                        </c:forEach>
-                                        <td>
-                                            <input type="radio" name="wordID" value="${word[0]}"> Select
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <input type="hidden" name="url" value="dictionary">
+            English: <input type="text" name="wordEnglish" value="${wordEnglish}"><br>
+            Welsh <input type="text" name="wordWelsh" value="${wordWelsh}"><br>
+            <c:choose>
+                <c:when test="${wordType=='adjective'}">
+                    <input type="radio" name="wordType" value="adjective" checked="true"> Adjective<br>
+                    <input type="radio" name="wordType" value="noun"> Noun<br>
+                </c:when>
+                <c:otherwise>
+                    <input type="radio" name="wordType" value="adjective"> Adjective<br>
+                    <input type="radio" name="wordType" value="noun" checked="true"> Noun<br>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${wordGender=='male'}">
+                    <input type="radio" name="wordGender" value="male" checked="true"> Male<br>
+                    <input type="radio" name="wordGender" value="female"> Female<br>
+                </c:when>
+                <c:otherwise>
+                    <input type="radio" name="wordGender" value="male"> Male<br>
+                    <input type="radio" name="wordGender" value="female" checked="true"> Female<br>
+                </c:otherwise>
+            </c:choose>
+            <input type="hidden" name="url" value="word">
             <input type="submit" class="btn btn-info" value="Submit">
         </form>
+                    
     </body>
 </html>
 

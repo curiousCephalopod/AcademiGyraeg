@@ -46,7 +46,7 @@
                             <li><a href="ProfileServlet">View Profile</a></li>
                         </c:if>
                         <c:if test="${userType == 2}">
-                            <li><a href="EditDict.jsp">Edit Dictionary</a></li>
+                            <li><a href="DictionaryServlet">Edit Dictionary</a></li>
                         </c:if>
                     </ul>
                     <p class="navbar-text">Welcome, ${user}</p>
@@ -59,7 +59,7 @@
         <div class="container">
             <h2> Quiz Menu </h2>
             <form action="QuizServlet" method="POST">
-                <input type="radio" name="quiz" value="g"> 1)Gender of Welsh Word<br>
+                <input type="radio" name="quiz" value="g" checked="true"> 1)Gender of Welsh Word<br>
                 <input type="radio" name="quiz" value="e"> 2)Welsh to English<br>
                 <input type="radio" name="quiz" value="w"> 3)English to Welsh
                 <input type="hidden" name="url" value="menu">

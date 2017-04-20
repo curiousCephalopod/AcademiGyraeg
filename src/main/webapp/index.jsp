@@ -45,7 +45,7 @@
                             <li><a href="ProfileServlet">View Profile</a></li>
                         </c:if>
                         <c:if test="${userType == 2}">
-                            <li><a href="EditDict.jsp">Edit Dictionary</a></li>
+                            <li><a href="DictionaryServlet">Edit Dictionary</a></li>
                         </c:if>
                     </ul>
                     <c:choose>

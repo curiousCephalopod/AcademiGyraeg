@@ -28,6 +28,14 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.mycompany.academigyraeg.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DictionaryServlet</servlet-name>
+        <servlet-class>com.mycompany.academigyraeg.DictionaryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditWordServlet</servlet-name>
+        <servlet-class>com.mycompany.academigyraeg.EditWordServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>welcome</servlet-name>
         <url-pattern>/welcome</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DictionaryServlet</servlet-name>
+        <url-pattern>/DictionaryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditWordServlet</servlet-name>
+        <url-pattern>/EditWordServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

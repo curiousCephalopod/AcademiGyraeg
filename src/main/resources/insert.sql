@@ -25,22 +25,29 @@ INSERT INTO words(english, welsh, wordType, wordGender) VALUES
 
 
 INSERT INTO login(username, password, userType) VALUES
-('eeu675', 'password1', 0),
-('eeu758','reallybadpassword',0),
-('eeu297','mostlypossiblymaybepassword',0),
-('eeu921','probablyapasswordbutnotreally',0),
-('eeu123','isthisreallyapassword',0),
-('eeu824','heywritingpasswordsiseasy',0),
-('eeu903','appearstobeanisntructorpasswordhere',1),
-('eeu836','halfdecentpassword648215',1),
-('eeu952','slightlybadpassword42',1),
-('eeu732','possiblyalrightpassword20',2),
-('eeu294','alrightpasswordmostly',2);
-
+('student1', 'studentpass1', 0),
+('student2', 'studentpass2', 0),
+('student3', 'studentpass3', 0),
+('instructor1', 'instructorpass1', 1),
+('instructor2', 'instructorpass2', 1),
+('instructor3', 'instructorpass3', 1),
+('admin1', 'adminpass1', 2),
+('admin2', 'adminpass2', 2),
+('admin3', 'adminpass3', 2);
 
 INSERT INTO results(username, quizType, result, outOf, dateTaken) VALUES
-('eeu675','e',15,20,1152462),
-('eeu758','w',21,60,6135745),
-('eeu921','g',20,20, 654618735),
-('eeu675','g',2,20, 54640646455),
-('eeu824','w',42,100, 6163434157);
+('student1', 'e', 5, 20, now() - INTERVAL 1 DAY),
+('student1', 'g', 2, 20, now() - INTERVAL 10 DAY),
+('student1', 'e', 16, 20, now() + INTERVAL 20 DAY),
+('student1', 'w', 2, 10, now() - INTERVAL 5 DAY),
+('student1', 'g', 20, 20, now() - INTERVAL 8 DAY),
+('student2', 'e', 8, 20, now() - INTERVAL 10 DAY),
+('student2', 'g', 9, 15, now() - INTERVAL 1 DAY),
+('student2', 'g', 10, 20, now() + INTERVAL 1 DAY),
+('student2', 'w', 20, 20, now() - INTERVAL 23 DAY),
+('student2', 'e', 15, 30, now() - INTERVAL 5 DAY),
+('student3', 'g', 5, 20, now() - INTERVAL 76 DAY),
+('student3', 'e', 3, 20, now() + INTERVAL 23 DAY),
+('student3', 'e', 15, 20, now() - INTERVAL 10 DAY),
+('student3', 'w', 15, 20, now() - INTERVAL 9 DAY),
+('student3', 'e', 17, 30, now() - INTERVAL 20 DAY);

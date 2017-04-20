@@ -44,10 +44,11 @@ public class ProfileServlet extends HttpServlet {
         if(session == null || session.getAttribute("user") == null){
             RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
             rs.forward(request, response);
+            return;
         }
 
-        // Form data list
-        ArrayList list = new ArrayList<>();
+        // Form data results
+        ArrayList results = new ArrayList<>();
         
         // Initialise the data source in case it wasn't already
         InputStream stream = LoginValidate.class.getResourceAsStream("/database.properties");
@@ -61,11 +62,33 @@ public class ProfileServlet extends HttpServlet {
         // Connect to the database
         try (Connection conn = SimpleDataSource.getConnection()){
            
-           PreparedStatement ps = conn.prepareStatement("SELECT * FROM login WHERE username = ? AND password = ?");
-           //ps.setString(1, username);
-           //ps.setString(2, pass);
+           PreparedStatement ps = conn.prepareStatement("SELECT quizType, result, outOf, dateTaken FROM results WHERE username = ?");
+           ps.setString(1, (String)session.getAttribute("user"));
+           
            ResultSet rs = ps.executeQuery();
-           //user = rs.next();
+           while(rs.next()){
+                // For each retrieved record, transcribe the details to the array
+                String[] result = new String[4];
+                
+                switch(rs.getString("quizType").charAt(0)){
+                    case 'e':
+                        result[0] = "Welsh to English";
+                        break;
+                    case 'w':
+                        result[0] = "English to Welsh";
+                        break;
+                    case 'g':
+                        result[0] = "Gender of Welsh";
+                        break;
+                }
+                result[1] = rs.getString("result");
+                result[2] = rs.getString("outOf");
+                result[3] = rs.getString("dateTaken");
+                
+                results.add(result);
+            }
+            
+            session.setAttribute("results", results);
 
         } catch (SQLException ex) {
             Logger.getLogger(LoginValidate.class.getName()).log(Level.SEVERE, null, ex);

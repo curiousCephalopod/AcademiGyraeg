@@ -39,7 +39,15 @@
                         <li><a href="EditDict.jsp">Edit Dictionary</a></li>
                         <li><a href="ViewProfile.jsp">View Profile</a></li>
                     </ul>
-                    <p class="navbar-text">Welcome, ${user}</p>
+                    <c:choose>
+                        <c:when test="${empty user}">
+                            <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal" style="margin-right:10px">Sign In</button>
+                            <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#register-modal" style="margin-right:10px">Register</button>
+                        </c:when>    
+                        <c:otherwise>
+                            <p class="navbar-text">Welcome, ${user}</p>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </nav>

@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class LoginValidate {
     
     
-    public static boolean validateUser(String username, String pass){
+    public static int validateUser(String username, String pass){
         // Retrieve the properties
         InputStream stream = LoginValidate.class.getResourceAsStream("/database.properties");
         
@@ -31,18 +31,22 @@ public class LoginValidate {
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(LoginValidate.class.getName()).log(Level.SEVERE, "Malformed Properties File", ex);
         }
-        boolean user = false;
+        
+        int userType = 3;
         try (Connection conn = SimpleDataSource.getConnection()){
            
            PreparedStatement ps = conn.prepareStatement("SELECT * FROM login WHERE username = ? AND password = ?");
            ps.setString(1, username);
            ps.setString(2, pass);
            ResultSet rs = ps.executeQuery();
-           user = rs.next();
+           if(rs.next()){
+               // User exists
+               userType = rs.getInt("userType");
+           }
 
         } catch (SQLException ex) {
             Logger.getLogger(LoginValidate.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return user;
+        return userType;
     }
 }

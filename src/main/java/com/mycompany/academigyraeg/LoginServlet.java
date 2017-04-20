@@ -38,10 +38,13 @@ public class LoginServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        if(LoginValidate.validateUser(user, pass)){
+        int userType = LoginValidate.validateUser(user, pass);
+        
+        if(userType != 3){
             RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
             
             session.setAttribute("user", user);
+            session.setAttribute("userType", userType);
             session.setAttribute("message", "User " + user + " logged in.");
             
             rs.forward(request, response);

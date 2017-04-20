@@ -62,7 +62,9 @@ public class Quiz {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        this.username = username;
         this.type = Quiztype;
+        
         try (Connection conn = SimpleDataSource.getConnection()){
             Statement st = conn.createStatement();
             
@@ -199,19 +201,16 @@ public class Quiz {
         try (Connection conn = SimpleDataSource.getConnection()){
             PreparedStatement storeResult = conn.prepareStatement(resultStore);
             //set data from current quiz
-            storeResult.setString(1,username);
-            storeResult.setString(2, "" + type);
+            storeResult.setString(1, username);
+            storeResult.setString(2, String.valueOf(type));
             storeResult.setInt(3, score);
             storeResult.setInt(4, outOf);
             //submit result to DB
-            System.out.println("execute");
             storeResult.executeUpdate();
             storeResult.close();
             return true;
-        }
-        catch(SQLException exception)
-        {
-            System.out.println("result store error");
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         

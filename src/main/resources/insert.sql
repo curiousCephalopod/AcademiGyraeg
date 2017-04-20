@@ -22,3 +22,17 @@ INSERT INTO words(english, welsh, wordType, wordGender) VALUES
 ('socks', 'sanau', 'noun', 'f'),
 ('son', 'mab', 'noun', 'm'),
 ('dancer', 'dawnsiwr', 'noun', 'm');
+
+
+INSERT INTO login(username, password, userType) VALUES
+('eeu675', 'password1', 0),
+('eeu758','reallybadpassword',0),
+('eeu297','mostlypossiblymaybepassword',0),
+('eeu921','probablyapasswordbutnotreally',0),
+('eeu123','isthisreallyapassword',0),
+('eeu824','heywritingpasswordsiseasy',0),
+('eeu903','appearstobeanisntructorpasswordhere',1),
+('eeu836','halfdecentpassword648215',1),
+('eeu952','slightlybadpassword42',1),
+('eeu732','possiblyalrightpassword20',2),
+('eeu294','alrightpasswordmostly',2),

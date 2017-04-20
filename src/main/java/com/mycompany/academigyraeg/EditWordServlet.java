@@ -63,8 +63,24 @@ public class EditWordServlet extends HttpServlet {
         
         if(request.getParameter("url").equals("dictionary")){
             // From dictionary
-            
             String wordID = (String)request.getParameter("wordID");
+            
+            if(request.getParameter("submit").equals("Delete")){
+                if(!wordID.equals("new")){
+                    try (Connection conn = SimpleDataSource.getConnection()){
+                        PreparedStatement ps = conn.prepareStatement("DELETE FROM words WHERE wordID = ?");
+                        
+                        ps.setString(1, wordID);
+                        ps.executeUpdate();
+                        ps.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(EditWordServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                RequestDispatcher rs = request.getRequestDispatcher("DictionaryServlet");
+                rs.forward(request, response);
+            }else{
+            
             if(wordID.equals("new")){
                 // New word
                 english = "english";
@@ -98,6 +114,7 @@ public class EditWordServlet extends HttpServlet {
             
             RequestDispatcher rs = request.getRequestDispatcher("EditWord.jsp");
             rs.forward(request, response);
+            }
         }else{
             // From edit menu
             

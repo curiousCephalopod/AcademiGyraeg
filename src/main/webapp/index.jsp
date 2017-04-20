@@ -40,18 +40,20 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.jsp">Home</a></li>
-                        <c:if test="${!empty user}">
+                        <c:if test="${userType == 0}">
                             <li><a href="MenuServlet">Quiz Menu</a></li>
-                            <li><a href="ProfileServlet">View Profile</a></li>
                         </c:if>
-                        <c:if test="${userType == 2}">
+                        <c:if test="${userType == 1}">
                             <li><a href="DictionaryServlet">Edit Dictionary</a></li>
                         </c:if>
+                        <c:if test="${userType == 2}">
+                            <li><a data-toggle="modal" data-target="#register-modal">Register User</a></li>
+                        </c:if>
+                        <li><a href="ProfileServlet">View Grades</a></li>
                     </ul>
                     <c:choose>
                         <c:when test="${empty user}">
                             <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal" style="margin-right:10px">Sign In</button>
-                            <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#register-modal" style="margin-right:10px">Register</button>
                         </c:when>
                         <c:otherwise>
                             <p class="navbar-text">Welcome, ${user}</p>
@@ -84,6 +86,9 @@
                     <form action="RegisterServlet" method="POST">
                         <input type="text" name="user" placeholder="Username">
                         <input type="password" name="pass" placeholder="Password">
+                        <input type="radio" name="type" value="0"> Student<br/>
+                        <input type="radio" name="type" value="1"> Instructor<br/>
+                        <input type="radio" name="type" value="2"> Administrator<br/>
                         <input type="submit" name="register" class="usermodal-submit" value="Register">
                     </form>
                 </div>

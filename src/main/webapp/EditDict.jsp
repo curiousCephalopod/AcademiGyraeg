@@ -89,9 +89,11 @@
                     </div>
                 </div>
             </div>
+            <div style="text-align: center">
             <input type="hidden" name="url" value="dictionary">
             <input type="submit" class="btn btn-info" name="submit" value="Submit">
             <input type="submit" class="btn btn-info" name="submit" value="Delete">
+            </div>
         </form>
     </body>
 </html>

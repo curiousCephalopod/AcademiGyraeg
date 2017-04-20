@@ -54,10 +54,12 @@
                 </div>
             </div>
         </nav>
-
+    <center>
         <form action="EditWordServlet" method="POST">
-            English: <input type="text" name="wordEnglish" value="${wordEnglish}"><br>
-            Welsh <input type="text" name="wordWelsh" value="${wordWelsh}"><br>
+            <h1> Edit a Word </h1> <br><br>
+            English: <input type="text" name="wordEnglish" value="${wordEnglish}"><br><br>
+            Welsh: <input type="text" name="wordWelsh" value="${wordWelsh}"><br><br>
+            <b>Word Type:</b> <br>
             <c:choose>
                 <c:when test="${wordType=='adjective'}">
                     <input type="radio" name="wordType" value="adjective" checked="true"> Adjective<br>
@@ -68,6 +70,7 @@
                     <input type="radio" name="wordType" value="noun" checked="true"> Noun<br>
                 </c:otherwise>
             </c:choose>
+                    <br><b>Gender: <br></b>
             <c:choose>
                 <c:when test="${wordGender=='male'}">
                     <input type="radio" name="wordGender" value="male" checked="true"> Male<br>
@@ -78,9 +81,11 @@
                     <input type="radio" name="wordGender" value="female" checked="true"> Female<br>
                 </c:otherwise>
             </c:choose>
+                    <br>
             <input type="hidden" name="url" value="word">
             <input type="submit" class="btn btn-info" value="Submit">
         </form>
+    </center>
                     
     </body>
 </html>

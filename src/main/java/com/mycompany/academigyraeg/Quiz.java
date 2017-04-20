@@ -8,7 +8,6 @@ package com.mycompany.academigyraeg;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,79 +23,96 @@ import java.util.logging.Logger;
  */
 public class Quiz {
 
-    InputStream stream = Quiz.class.getResourceAsStream("/database.properties");
-    
-    
-        
-    
-    int outOf = 20; //total words of quiz
-    int currentWord = 0; //current word incrementer
-    String username; //user working current test
-    int wordIndex[] = new int[outOf]; //index of ID's for the quiz
-    Random rand = new Random();
-    int noWords = 0; //words in DB
-    int score;
-    char type;
-    
-    
-    //SQL statement list
+    // Properties stream
+    private InputStream stream;
+
+    // Quiz parameters
+    private int outOf;
+    private int currentWord;
+    private int score;
+    private char type;
+
+    private String username;
+    private int wordIndex[];
+
+    // SQL Statements
     String getRandID = "SELECT wordID FROM words ORDER BY RAND() LIMIT 1";
     String wordGet = "SELECT * FROM words WHERE wordID = ?";
     String resultStore = "INSERT INTO results(username, quizType, result, outOf, dateTaken) VALUES (?, ?, ?, ?, now())";
-    String resultCheck = "SELECT ? FROM words WHERE wordID = ?";
-    
+
     /**
-     * initialise prepared statements
-     * initialise random words from database
+     * Initialise prepared statements initialise random words from database.
+     *
      * @param username user running quiz
-     * @param Quiztype type of quiz running
+     * @param quizType type of quiz running
      */
-    public Quiz(String username, char Quiztype)
-    {
-        
+    public Quiz(String username, char quizType) {
+        // Set defaults
+        this.wordIndex = new int[outOf];
+        this.currentWord = 0;
+        this.outOf = 20;
+        this.stream = Quiz.class.getResourceAsStream("/database.properties");
+
+        // Retrieve parameters
+        this.username = username;
+        this.type = quizType;
+
         try {
             SimpleDataSource.init(stream);
-        } catch (IOException ex) {
-            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        this.username = username;
-        this.type = Quiztype;
-        
-        try (Connection conn = SimpleDataSource.getConnection()){
+
+        try (Connection conn = SimpleDataSource.getConnection()) {
+            // Create the statement
             Statement st = conn.createStatement();
-            
-            //fill array with random wordID's from DB
-            for(int i=0;i<outOf;i++)
-            {
+
+            // Fill array with random wordID's from DB
+            for (int i = 0; i < outOf; i++) {
                 ResultSet res = st.executeQuery(getRandID);
                 res.next();
                 wordIndex[i] = res.getInt("wordID");
             }
-            
+
+            // Close the statement
             st.close();
-        }
-        catch (SQLException exception)
-        {
-            System.out.println("DB error(constructor)");
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
     /**
-     * e = english of welsh noun
-     * w = welsh of english noun
-     * g = gender of welsh noun
-     * ** ^ words to display on question
+     * @return the outOf
+     */
+    public int getOutOf() {
+        return outOf;
+    }
+
+    /**
+     * @return the currentWord
+     */
+    public int getCurrentWordNo() {
+        return currentWord;
+    }
+
+    /**
+     * @return the score
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * e = english of welsh noun w = welsh of english noun g = gender of welsh
+     * noun ** ^ words to display on question
+     *
      * @return array of words to display in quiz
      */
-    public String getCurrentWord(){
+    public String getCurrentWord() {
         String output = "";
         String column;
-        //set column name based on type of quiz running
-        switch(type){
+        // Set column name based on type of quiz running
+        switch (type) {
             case 'e':
                 column = "welsh";
                 break;
@@ -111,41 +127,41 @@ public class Quiz {
                 System.out.println("error");
                 break;
         }
-        try (Connection conn = SimpleDataSource.getConnection()){
+
+        // Connect to the database
+        try (Connection conn = SimpleDataSource.getConnection()) {
             // Form query
             PreparedStatement getWordPart = conn.prepareStatement(wordGet);
-            getWordPart.setInt(1, wordIndex[currentWord]);
+            getWordPart.setInt(1, wordIndex[getCurrentWordNo()]);
             // Execute query
             ResultSet rs = getWordPart.executeQuery();
             // Retrieve required word
             rs.next();
             output = rs.getString(column);
+
+            // Close the statement
             getWordPart.close();
-        }catch(SQLException exception){
-            System.out.println("SQL error(getCurrentWord)");
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return output;
     }
-    
+
     /**
-     * Enter solution to the made quiz, to be run sequentially
-     * e = english of welsh noun
-     * w = welsh of english noun
-     * g = gender of welsh noun
-     * ** ^ words to compare against for answers
+     * Enter solution to the made quiz, to be run sequentially e = english of
+     * welsh noun w = welsh of english noun g = gender of welsh noun ** ^ words
+     * to compare against for answers
+     *
      * @param solution user entered solution
+     * @return Correct or false
      */
-    public boolean solve(String solution)
-    {
-        //check if running for question that does not exist
-        if (currentWord < outOf)
-        {
+    public boolean solve(String solution) {
+        // Check if running for question that does not exist
+        if (currentWord < outOf) {
             String column = "";
-            String input;
-            //set column name based on type of quiz running
-            switch(type)
-            {
+            // Set column name based on type of quiz running
+            switch (type) {
                 case 'e':
                     column = "english";
                     break;
@@ -158,61 +174,60 @@ public class Quiz {
                 default:
                     System.out.println("error");
             }
-            try (Connection conn = SimpleDataSource.getConnection()){
+
+            // Connect to the database
+            try (Connection conn = SimpleDataSource.getConnection()) {
+                // Prepare the statement
                 PreparedStatement getWordPart = conn.prepareStatement(wordGet);
-                getWordPart.setInt(1,wordIndex[currentWord]);
+                // Set the the wordID
+                getWordPart.setInt(1, wordIndex[getCurrentWordNo()]);
+                // Search for the solution
                 ResultSet rs = getWordPart.executeQuery();
                 rs.next();
-                //check user input against required column of current word
-                if(solution.equals(rs.getString(column)))
-                {
-                    //if true increment score and current word index
+                // Check user input against required column of current word
+                if (solution.equals(rs.getString(column))) {
+                    // If correct, increment score and index
                     score++;
                     currentWord++;
                     return true;
-                }
-                else
-                {
+                } else {
+                    // Otherwise just increment index
                     currentWord++;
-                    return false;
                 }
+            } catch (SQLException ex) {
+                Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
             }
-            catch(SQLException exception)
-            {
-                System.out.println("answer retrieval error");
-                return false;
-            }
+        } else {
+            System.out.println("Too many solutions");
         }
-        else
-        {
-            System.out.println("too many solutions");
-            return false;
-        }
+
+        // Any other route is a failure
+        return false;
     }
-    
-    
+
     /**
-     * store final data of quiz into database
+     * Store final data of quiz into database.
+     *
      * @return successful store or not
      */
-    public boolean storeResult()
-    {
-        
-        try (Connection conn = SimpleDataSource.getConnection()){
+    public void storeResult() {
+
+        // Connect to the database
+        try (Connection conn = SimpleDataSource.getConnection()) {
+            // Form the statement
             PreparedStatement storeResult = conn.prepareStatement(resultStore);
-            //set data from current quiz
+
+            //Set data from current quiz
             storeResult.setString(1, username);
             storeResult.setString(2, String.valueOf(type));
-            storeResult.setInt(3, score);
-            storeResult.setInt(4, outOf);
-            //submit result to DB
+            storeResult.setInt(3, getScore());
+            storeResult.setInt(4, getOutOf());
+
+            // Add the result and close the statement
             storeResult.executeUpdate();
             storeResult.close();
-            return true;
         } catch (SQLException ex) {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
         }
-        
     }
 }

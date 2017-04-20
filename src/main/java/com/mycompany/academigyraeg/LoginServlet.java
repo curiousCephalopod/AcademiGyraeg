@@ -6,7 +6,6 @@
 package com.mycompany.academigyraeg;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,29 +29,35 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-                
+        // Retrieve the entered username and password
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
-        
+
+        // Retrieve the current session, or create a new one
         HttpSession session = request.getSession();
-        
+
+        // Determine if the user exists, and it's type
         int userType = LoginValidate.validateUser(user, pass);
-        
-        if(userType != 3){
-            RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
-            
+
+        // If the user doe exist
+        if (userType != 3) {
+            // Return to the index
+            RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+
+            // Save the user details into the session
             session.setAttribute("user", user);
             session.setAttribute("userType", userType);
             session.setAttribute("message", "User " + user + " logged in.");
-            
+
             rs.forward(request, response);
-        }else{
+        } else {
+            // If the user doesn't exist
+            // Send a message
             session.setAttribute("message", "Invalid username or password.");
-            
+
+            // Return to the index
             RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
             rs.include(request, response);
         }
-        
     }
-
 }

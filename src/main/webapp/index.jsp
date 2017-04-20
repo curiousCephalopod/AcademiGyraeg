@@ -16,15 +16,12 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/manifest.json">
         <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="css/snippets.css" type="text/css">
         <link rel="stylesheet" href="css/custom.css" type="text/css">
     </head>
     <body>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.js"></script>
 
-        <br><br>
-        
         <!-- Start Navigation Bar script -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
@@ -41,15 +38,17 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.jsp">Home</a></li>
                         <c:if test="${userType == 0}">
-                            <li><a href="MenuServlet">Quiz Menu</a></li>
+                        <li><a href="MenuServlet">Quiz Menu</a></li>
                         </c:if>
                         <c:if test="${userType == 1}">
-                            <li><a href="DictionaryServlet">Edit Dictionary</a></li>
+                        <li><a href="DictionaryServlet">Edit Dictionary</a></li>
                         </c:if>
                         <c:if test="${userType == 2}">
-                            <li><a data-toggle="modal" data-target="#register-modal">Register User</a></li>
+                        <li><a data-toggle="modal" data-target="#register-modal">Register User</a></li>
                         </c:if>
+                        <c:if test="${!empty user}">
                         <li><a href="ProfileServlet">View Grades</a></li>
+                        </c:if>
                     </ul>
                     <c:choose>
                         <c:when test="${empty user}">
@@ -63,7 +62,7 @@
                 </div>
             </div>
         </nav>
-        
+
         <!-- Start login script -->
         <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" style="display: none;">
             <div class="modal-dialog">
@@ -77,15 +76,15 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Start register script -->
         <div class="modal fade" id="register-modal" tabindex="-1" role="dialog" style="display: none;">
             <div class="modal-dialog">
                 <div class="usermodal-container">
                     <h1>Register a New Account</h1><br>
                     <form action="RegisterServlet" method="POST">
-                        <input type="text" name="user" placeholder="Username">
-                        <input type="password" name="pass" placeholder="Password">
+                        <input type="text" name="newUser" placeholder="Username">
+                        <input type="password" name="newPass" placeholder="Password">
                         <input type="radio" name="type" value="0"> Student<br/>
                         <input type="radio" name="type" value="1"> Instructor<br/>
                         <input type="radio" name="type" value="2"> Administrator<br/>
@@ -94,7 +93,8 @@
                 </div>
             </div>
         </div>
-        
+
+        <br/>
         <!-- add text to page so it's not empty -->
         <h3>${message}</h3>
         <div align="center">

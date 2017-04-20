@@ -13,39 +13,43 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
-   A simple data source for getting database connections. 
-*/
-public class SimpleDataSource
-{
+ * A simple data source for getting database connections. Sourced from
+ * blackboard.
+ */
+public class SimpleDataSource {
+
     /**
-   Initializes the data source.
-   @param stream the stream that 
-   contains the database driver, url, username and password
-    */
-   public static void init(InputStream stream) throws IOException, ClassNotFoundException
-   {  
-    Properties props = new Properties();
-    props.load(stream);
+     * Initialises the data source.
+     *
+     * @param stream the stream that contains the database driver, url, username
+     * and password
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
+     */
+    public static void init(InputStream stream) throws IOException, ClassNotFoundException {
+        // Retrieve the properties
+        Properties props = new Properties();
+        props.load(stream);
 
-    String driver = props.getProperty("jdbc.driver");
-    url = props.getProperty("jdbc.url");
-    username = props.getProperty("jdbc.username");
-    password = props.getProperty("jdbc.password");
+        // Set the settings from the properties
+        String driver = props.getProperty("jdbc.driver");
+        url = props.getProperty("jdbc.url");
+        username = props.getProperty("jdbc.username");
+        password = props.getProperty("jdbc.password");
 
-    Class.forName(driver);
-   }
+        Class.forName(driver);
+    }
 
-   /**
-      Gets a connection to the database.
-      @return the database connection
-   */
-   public static Connection getConnection() throws SQLException
-   {
-    return DriverManager.getConnection(url, 
-          username, password);
-   }
+    /**
+     * @throws java.sql.SQLException * Gets a connection to the database.
+     *
+     * @return the database connection
+     */
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(url, username, password);
+    }
 
-   private static String url;
-   private static String username;
-   private static String password;
+    private static String url;
+    private static String username;
+    private static String password;
 }

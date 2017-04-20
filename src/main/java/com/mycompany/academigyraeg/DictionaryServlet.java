@@ -7,7 +7,6 @@ package com.mycompany.academigyraeg;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,10 +27,19 @@ import javax.servlet.http.HttpSession;
  */
 public class DictionaryServlet extends HttpServlet {
 
-    private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    /**
+     * Dictionary can be accessed via POST or GET, so use a helper method.
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
+    private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Retrieve the session, if it exists
         HttpSession session = request.getSession(false);
-        
-        if(session == null || session.getAttribute("user") == null){
+
+        // Check if a user is logged in, otherwise redirect
+        if (session == null || session.getAttribute("user") == null) {
             RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
             rs.forward(request, response);
             return;
@@ -39,7 +47,7 @@ public class DictionaryServlet extends HttpServlet {
 
         // Form data results
         ArrayList words = new ArrayList<>();
-        
+
         // Initialise the data source in case it wasn't already
         InputStream stream = LoginValidate.class.getResourceAsStream("/database.properties");
         try {
@@ -48,22 +56,25 @@ public class DictionaryServlet extends HttpServlet {
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(LoginValidate.class.getName()).log(Level.SEVERE, "Malformed Properties File", ex);
         }
-        
+
         // Connect to the database
-        try (Connection conn = SimpleDataSource.getConnection()){
-           
-           PreparedStatement ps = conn.prepareStatement("SELECT * FROM words");
-           
-           ResultSet rs = ps.executeQuery();
-           while(rs.next()){
+        try (Connection conn = SimpleDataSource.getConnection()) {
+            
+            // Form the statement to retrieve words
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM words");
+            
+            // Execute the query
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
                 // For each retrieved record, transcribe the details to the array
                 String[] word = new String[5];
-                
+
                 word[0] = rs.getString("wordID");
                 word[1] = rs.getString("english");
                 word[2] = rs.getString("welsh");
                 word[3] = rs.getString("wordType");
-                switch(rs.getString("wordGender")){
+                // Replace the gender character with a string
+                switch (rs.getString("wordGender")) {
                     case "f":
                         word[4] = "female";
                         break;
@@ -74,21 +85,23 @@ public class DictionaryServlet extends HttpServlet {
                         word[4] = "male";
                         break;
                 }
-                
+
                 words.add(word);
             }
-            
-            session.setAttribute("words", words);
+            // Close the statement
+            ps.close();
 
+            // Store the words
+            session.setAttribute("words", words);
         } catch (SQLException ex) {
             Logger.getLogger(LoginValidate.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
+        // Redirect to the dictionary jsp
         RequestDispatcher rs = request.getRequestDispatcher("EditDict.jsp");
         rs.forward(request, response);
     }
-    
-    
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -101,7 +114,15 @@ public class DictionaryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
     }
-    
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
     }

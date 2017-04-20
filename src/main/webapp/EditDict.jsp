@@ -21,7 +21,6 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/manifest.json">
         <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="css/snippets.css" type="text/css">
         <link rel="stylesheet" href="css/custom.css" type="text/css">
     </head>
 
@@ -41,13 +40,15 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="index.jsp">Home</a></li>
-                        <c:if test="${userType == 0}">
+                            <c:if test="${userType == 0}">
                             <li><a href="MenuServlet">Quiz Menu</a></li>
-                        </c:if>
-                        <c:if test="${userType == 1}">
+                            </c:if>
+                            <c:if test="${userType == 1}">
                             <li class="active"><a href="DictionaryServlet">Edit Dictionary</a></li>
-                        </c:if>
-                        <li><a href="ProfileServlet">View Grades</a></li>
+                            </c:if>
+                            <c:if test="${!empty user}">
+                            <li><a href="ProfileServlet">View Grades</a></li>
+                            </c:if> 
                     </ul>
                     <p class="navbar-text">Welcome, ${user}</p>
                     <a type="button" href="LogoutServlet" class="btn btn-default navbar-btn navbar-right" style="margin-right:10px">Logout</a>

@@ -29,17 +29,15 @@ public class MenuServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-              
+        // If a session exists, retrieve it
         HttpSession session = request.getSession(false);
-        if(session != null){
-            if(session.getAttribute("user") != null){
-                RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
-                rs.forward(request, response);
-            }else{
-                RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
-                rs.forward(request, response);
-            }
-        }else{
+        if (session != null && session.getAttribute("user") != null) {
+            // If the session exists, and a user is logged in
+            // Go to the quiz menu
+            RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
+            rs.forward(request, response);
+        } else {
+            // Else return to the index
             RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
             rs.forward(request, response);
         }

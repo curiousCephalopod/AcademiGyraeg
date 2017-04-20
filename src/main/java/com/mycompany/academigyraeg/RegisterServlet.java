@@ -6,7 +6,6 @@
 package com.mycompany.academigyraeg;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,22 +29,32 @@ public class RegisterServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        
-        // If username and password is valid
-        if(LoginValidate.validateUsername(user) && LoginValidate.validatePassword(pass)){
-            // Create a user of type 0
-            LoginValidate.createUser(user, pass, 0);
+        // Retrieve a session if it exists
+        HttpSession session = request.getSession(false);
+
+        // Check if a user is logged in, otherwise redirect to index
+        if (session == null || session.getAttribute("user") == null) {
+            RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+            rs.forward(request, response);
+            return;
         }
-        
-        HttpSession session = request.getSession();
-        
-        session.setAttribute("user", user);
-        session.setAttribute("userType", 0);
-        session.setAttribute("message", "User " + user + " logged in.");
-        
-        RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
+
+        // Retrieve the new user details
+        String user = request.getParameter("newUser");
+        String pass = request.getParameter("newPass");
+        String type = request.getParameter("type");
+
+        // If username and password is valid
+        if (LoginValidate.validateUsername(user) && LoginValidate.validatePassword(pass)) {
+            // Create a user of specified type
+            LoginValidate.createUser(user, pass, type);
+        }
+
+        // Set a confirmation message
+        session.setAttribute("message", "New user, " + user + ", has been added.");
+
+        // Redirect back to the index
+        RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
         rs.forward(request, response);
     }
 }

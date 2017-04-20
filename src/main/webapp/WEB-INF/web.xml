@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>welcome</servlet-name>
-        <servlet-class>com.mycompany.academigyraeg.welcome</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>com.mycompany.academigyraeg.RegisterServlet</servlet-class>
     </servlet>
@@ -36,10 +32,6 @@
         <servlet-name>EditWordServlet</servlet-name>
         <servlet-class>com.mycompany.academigyraeg.EditWordServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>welcome</servlet-name>
-        <url-pattern>/welcome</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>

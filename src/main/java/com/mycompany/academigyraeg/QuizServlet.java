@@ -6,7 +6,6 @@
 package com.mycompany.academigyraeg;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,17 +29,31 @@ public class QuizServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        
-        Quiz quiz = (Quiz)session.getAttribute("quizObject");
-        if(request.getParameter("url").equals("menu")){
-            // First run
-            
+        // If a session exists, retrieve it
+        HttpSession session = request.getSession(false);
+
+        if (session == null || session.getAttribute("user") == null) {
+            // If the session doesn't exist, or the user is not logged in
+            // return to the index
+            RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+            rs.forward(request, response);
+            return;
+        }
+
+        // If possible, retrieve the current running quiz
+        Quiz quiz = (Quiz) session.getAttribute("quizObject");
+        if (request.getParameter("url").equals("menu")) {
+            // First question / from menu
+
+            // Convert the type string to a character
             char quizType = request.getParameter("quiz").charAt(0);
+            // Question details
             String quizName;
             String firstLabel;
             String secondLabel;
-            switch(quizType){
+
+            // Form the labels based on the current quiz
+            switch (quizType) {
                 case 'g':
                     quizName = "Gender of Welsh Word";
                     firstLabel = "Welsh Word";
@@ -64,31 +77,42 @@ public class QuizServlet extends HttpServlet {
                     break;
             }
 
+            // Set all of the labels
             session.setAttribute("quizName", quizName);
             session.setAttribute("firstLabel", firstLabel);
             session.setAttribute("secondLabel", secondLabel);
             session.setAttribute("answer", "");
-            
-            quiz = new Quiz((String)session.getAttribute("user"), quizType);
-            session.setAttribute("outOf", quiz.outOf);
+
+            // Form a new quiz
+            quiz = new Quiz((String) session.getAttribute("user"), quizType);
+            // Save the quiz details
+            session.setAttribute("outOf", quiz.getOutOf());
             session.setAttribute("quizObject", quiz);
-        }else{
+        } else {
             // Next question
+            // Retrieve the answer and test it
             String answer = request.getParameter("answer");
             session.setAttribute("answer", quiz.solve(answer));
         }
-        
-        session.setAttribute("current", quiz.currentWord);
+
+        // Save the current question number
+        session.setAttribute("current", quiz.getCurrentWordNo());
+
         RequestDispatcher rs;
-        if(quiz.currentWord == (quiz.outOf - 1)){
-            session.setAttribute("score", quiz.score);
+        if (quiz.getCurrentWordNo() == (quiz.getOutOf() - 1)) {
+            // If we are at the end of the quiz
+            // Save the score to session and database
+            session.setAttribute("score", quiz.getScore());
             quiz.storeResult();
+            // Redirect to the results pages
             rs = request.getRequestDispatcher("QuizResult.jsp");
-        }else{
+        } else {
+            // Retrieve the next question and reload the page
             session.setAttribute("question", quiz.getCurrentWord());
             rs = request.getRequestDispatcher("QuizView.jsp");
         }
-        
+
+        // Redirect
         rs.include(request, response);
     }
 

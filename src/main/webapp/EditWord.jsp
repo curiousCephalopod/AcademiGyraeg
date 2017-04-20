@@ -40,48 +40,52 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="index.jsp">Home</a></li>
-                            <c:if test="${userType == 0}">
-                            <li><a href="MenuServlet">Quiz Menu</a></li>
-                            </c:if>
-                            <c:if test="${userType == 1}">
-                            <li class="active"><a href="DictionaryServlet">Edit Dictionary</a></li>
-                            </c:if>
-                            <c:if test="${!empty user}">
-                            <li><a href="ProfileServlet">View Grades</a></li>
-                            </c:if> 
+                        <c:if test="${userType == 0}">
+                        <li><a href="MenuServlet">Quiz Menu</a></li>
+                        </c:if>
+                        <c:if test="${userType == 1}">
+                        <li class="active"><a href="DictionaryServlet">Edit Dictionary</a></li>
+                        </c:if>
+                        <c:if test="${!empty user}">
+                        <li><a href="ProfileServlet">View Grades</a></li>
+                        </c:if> 
                     </ul>
                     <p class="navbar-text">Welcome, ${user}</p>
                     <a type="button" href="LogoutServlet" class="btn btn-default navbar-btn navbar-right" style="margin-right:10px">Logout</a>
                 </div>
             </div>
         </nav>
-
-        <form action="EditWordServlet" method="POST">
-            English: <input type="text" name="wordEnglish" value="${wordEnglish}"><br>
-            Welsh <input type="text" name="wordWelsh" value="${wordWelsh}"><br>
-            <c:choose>
-                <c:when test="${wordType=='adjective'}">
-                    <input type="radio" name="wordType" value="adjective" checked="true"> Adjective<br>
-                    <input type="radio" name="wordType" value="noun"> Noun<br>
-                </c:when>
-                <c:otherwise>
-                    <input type="radio" name="wordType" value="adjective"> Adjective<br>
-                    <input type="radio" name="wordType" value="noun" checked="true"> Noun<br>
-                </c:otherwise>
-            </c:choose>
-            <c:choose>
-                <c:when test="${wordGender=='male'}">
-                    <input type="radio" name="wordGender" value="male" checked="true"> Male<br>
-                    <input type="radio" name="wordGender" value="female"> Female<br>
-                </c:when>
-                <c:otherwise>
-                    <input type="radio" name="wordGender" value="male"> Male<br>
-                    <input type="radio" name="wordGender" value="female" checked="true"> Female<br>
-                </c:otherwise>
-            </c:choose>
-            <input type="hidden" name="url" value="word">
-            <input type="submit" class="btn btn-info" value="Submit">
-        </form>
+        <center>
+            <form action="EditWordServlet" method="POST">
+                <h1> Edit a Word </h1> <br><br>
+                English: <input type="text" name="wordEnglish" value="${wordEnglish}"><br><br>
+                Welsh: <input type="text" name="wordWelsh" value="${wordWelsh}"><br><br>
+                <b>Word Type:</b> <br>
+                <c:choose>
+                    <c:when test="${wordType=='adjective'}">
+                        <input type="radio" name="wordType" value="adjective" checked="true"> Adjective<br>
+                        <input type="radio" name="wordType" value="noun"> Noun<br>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="radio" name="wordType" value="adjective"> Adjective<br>
+                        <input type="radio" name="wordType" value="noun" checked="true"> Noun<br>
+                    </c:otherwise>
+                </c:choose>
+                <br><b>Gender: <br></b>
+                    <c:choose>
+                        <c:when test="${wordGender=='male'}">
+                        <input type="radio" name="wordGender" value="male" checked="true"> Male<br>
+                        <input type="radio" name="wordGender" value="female"> Female<br>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="radio" name="wordGender" value="male"> Male<br>
+                        <input type="radio" name="wordGender" value="female" checked="true"> Female<br>
+                    </c:otherwise>
+                </c:choose>
+                <br/>
+                <input type="hidden" name="url" value="word">
+                <input type="submit" class="btn btn-info" value="Submit">
+            </form>
+        </center>
     </body>
 </html>
-

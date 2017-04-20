@@ -57,7 +57,8 @@
         </nav>
 
         <form action="EditWordServlet" method="POST">
-            <div class="container" style="margin-top:50px">
+            
+            <div class="container-form" style="margin-top:50px" >
                 <div class="panel panel-default">
                     <div class="panel-body" style="padding:0px">
                         <table class="table table-striped table-bordered" style="margin:0px">
@@ -89,10 +90,11 @@
                     </div>
                 </div>
             </div>
+            <div style="text-align: center">
             <input type="hidden" name="url" value="dictionary">
             <input type="submit" class="btn btn-info" name="submit" value="Submit">
             <input type="submit" class="btn btn-info" name="submit" value="Delete">
+            </div>
         </form>
     </body>
 </html>
-

@@ -94,9 +94,8 @@
             </div>
         </div>
 
-        <br/>
-        <!-- add text to page so it's not empty -->
         <h3>${message}</h3>
+        <br/>
         <div align="center">
             <h1>WELCOME TO ACADEMI GYRAEG</h1>
         </div>

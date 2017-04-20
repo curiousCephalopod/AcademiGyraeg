@@ -30,9 +30,7 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
+                
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
         
@@ -50,8 +48,6 @@ public class LoginServlet extends HttpServlet {
             rs.forward(request, response);
         }else{
             session.setAttribute("message", "Invalid username or password.");
-            
-            session.invalidate();
             
             RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
             rs.include(request, response);

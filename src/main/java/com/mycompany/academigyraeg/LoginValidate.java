@@ -49,4 +49,38 @@ public class LoginValidate {
         }
         return userType;
     }
+    
+    public static void createUser(String username, String password, int userType){
+        
+        // Retrieve the properties
+        InputStream stream = LoginValidate.class.getResourceAsStream("/database.properties");
+        
+        try {
+            // Initialise the data source using the properties
+            SimpleDataSource.init(stream);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(LoginValidate.class.getName()).log(Level.SEVERE, "Malformed Properties File", ex);
+        }
+        
+        try (Connection conn = SimpleDataSource.getConnection()){
+           
+           PreparedStatement ps = conn.prepareStatement("INSERT INTO login(username, password, userType) VALUES (?, ?, ?)");
+           ps.setString(1, username);
+           ps.setString(2, password);
+           ps.setInt(3, userType);
+           ps.executeUpdate();
+           ps.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginValidate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static boolean validateUsername(String username){
+        return username.length() <= 56;
+    }
+    
+    public static boolean validatePassword(String password){
+        return password.length() <= 256;
+    }
 }

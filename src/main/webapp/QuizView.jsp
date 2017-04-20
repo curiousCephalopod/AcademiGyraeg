@@ -4,6 +4,7 @@
     Author     : eeu67d
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,19 +36,16 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="index.jsp">Home</a></li>
-                        <li><a href="MenuServlet">Quiz Menu</a></li>
-                        <li><a href="EditDict.jsp">Edit Dictionary</a></li>
-                        <li><a href="ProfileServlet">View Profile</a></li>
+                        <c:if test="${!empty user}">
+                            <li><a href="MenuServlet">Quiz Menu</a></li>
+                            <li><a href="ProfileServlet">View Profile</a></li>
+                        </c:if>
+                        <c:if test="${userType == 2}">
+                            <li><a href="EditDict.jsp">Edit Dictionary</a></li>
+                        </c:if>
                     </ul>
-                    <c:choose>
-                        <c:when test="${empty user}">
-                            <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#login-modal" style="margin-right:10px">Sign In</button>
-                            <button type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#register-modal" style="margin-right:10px">Register</button>
-                        </c:when>    
-                        <c:otherwise>
-                            <p class="navbar-text">Welcome, ${user}</p>
-                        </c:otherwise>
-                    </c:choose>
+                    <p class="navbar-text">Welcome, ${user}</p>
+                    <a type="button" href="LogoutServlet" class="btn btn-default navbar-btn navbar-right" style="margin-right:10px">Logout</a>
                 </div>
             </div>
         </nav>

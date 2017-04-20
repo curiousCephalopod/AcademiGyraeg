@@ -7,10 +7,12 @@ package com.mycompany.academigyraeg;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,27 +30,22 @@ public class RegisterServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Set response type
-        response.setContentType("text/html");
-        // Get the http writer
-        PrintWriter out = response.getWriter();
+        String user = request.getParameter("user");
+        String pass = request.getParameter("pass");
         
-        // Retrieve the username parameter
-        String username = request.getParameter("username");
-        String text;
-        // Form the return text
-        if(username.isEmpty())
-            text = "Please enter valid credentials.";
-        else
-            text = "Hi user " + username + ". You are now logged into the system.";
+        // If username and password is valid
+        if(LoginValidate.validateUsername(user) && LoginValidate.validatePassword(pass)){
+            // Create a user of type 0
+            LoginValidate.createUser(user, pass, 0);
+        }
         
-        // Form the HTML script
-        out.println("<html>");
-        out.println("<body>");
-        out.println("<h1>" + text + "</h1>");
-        out.println("</body>");
-        out.println("</html>");
+        HttpSession session = request.getSession();
         
-        out.close();
+        session.setAttribute("user", user);
+        session.setAttribute("userType", 0);
+        session.setAttribute("message", "User " + user + " logged in.");
+        
+        RequestDispatcher rs = request.getRequestDispatcher("QuizMenu.jsp");
+        rs.forward(request, response);
     }
 }

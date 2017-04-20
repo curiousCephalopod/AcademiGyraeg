@@ -24,6 +24,10 @@
         <servlet-name>ProfileServlet</servlet-name>
         <servlet-class>com.mycompany.academigyraeg.ProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.mycompany.academigyraeg.LogoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>welcome</servlet-name>
         <url-pattern>/welcome</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/ProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

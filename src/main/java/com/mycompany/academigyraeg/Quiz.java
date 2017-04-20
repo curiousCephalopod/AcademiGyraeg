@@ -48,14 +48,14 @@ public class Quiz {
      */
     public Quiz(String username, char quizType) {
         // Set defaults
+        this.outOf = 20;
         this.wordIndex = new int[outOf];
         this.currentWord = 0;
-        this.outOf = 20;
         this.stream = Quiz.class.getResourceAsStream("/database.properties");
 
         // Retrieve parameters
         this.username = username;
-        this.type = quizType;
+        type = quizType;
 
         try {
             SimpleDataSource.init(stream);
@@ -165,12 +165,12 @@ public class Quiz {
                 case 'e':
                     column = "english";
                     break;
-
                 case 'w':
                     column = "welsh";
                     break;
                 case 'g':
-                    column = "gender";
+                    column = "wordGender";
+                    break;
                 default:
                     System.out.println("error");
             }

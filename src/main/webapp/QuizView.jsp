@@ -53,7 +53,7 @@
 
         <br><br>
         <h1>${quizName}</h1>
-        Current question: ${current} out of ${outOf}.
+        Current question: ${current+1} out of ${outOf}.
         Previous answer was: ${answer}
         <form action="QuizServlet" method="POST">
             ${firstLabel}: ${question} <br>

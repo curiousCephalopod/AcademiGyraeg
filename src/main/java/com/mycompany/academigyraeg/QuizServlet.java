@@ -57,7 +57,7 @@ public class QuizServlet extends HttpServlet {
                 case 'g':
                     quizName = "Gender of Welsh Word";
                     firstLabel = "Welsh Word";
-                    secondLabel = "Gender";
+                    secondLabel = "Gender (f/m)";
                     break;
                 case 'e':
                     quizName = "Welsh to English";
@@ -73,7 +73,7 @@ public class QuizServlet extends HttpServlet {
                     quizType = 'g';
                     quizName = "Gender of Welsh Word";
                     firstLabel = "Welsh Word";
-                    secondLabel = "Gender";
+                    secondLabel = "Gender (f/m)";
                     break;
             }
 
